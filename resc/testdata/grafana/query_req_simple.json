@@ -1,0 +1,37 @@
+{
+  "timezone": "browser",
+  "panelId": 2,
+  "dashboardId": 1,
+  "range": {
+    "from": "2018-12-27T04:34:40.487Z",
+    "to": "2018-12-27T10:34:40.487Z",
+    "raw": {
+      "from": "now-6h",
+      "to": "now"
+    }
+  },
+  "rangeRaw": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "interval": "20s",
+  "intervalMs": 20000,
+  "targets": [
+    {
+      "target": "namespace:test:x:m5:qwrrqeereee",
+      "refId": "A",
+      "type": "timeserie"
+    }
+  ],
+  "maxDataPoints": 960,
+  "scopedVars": {
+    "__interval": {
+      "text": "20s",
+      "value": "20s"
+    },
+    "__interval_ms": {
+      "text": 20000,
+      "value": 20000
+    }
+  }
+}

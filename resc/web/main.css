@@ -1,0 +1,33 @@
+body {
+    font-family: 'Noto Sans', sans-serif;
+    background-color: #f7f7f7;
+    color: #2b637c;
+}
+
+header {
+    background-color: #363636;
+    color: #fafafa;
+    font-weight: bold;
+    width: calc(90% - -5px);
+    text-align: center;
+    margin-left: 5%;
+    padding: 12px 0px;
+}
+
+.block {
+    background-color: #e8eff1;
+    padding: 10px 10px 10px 18px;
+    display: block;
+    width: calc(90% - 28px);
+    margin-left: 5%;
+    border-left: 5px solid #e8eff1;
+    margin-bottom: 10px;
+}
+
+.block-yel {
+    border-left: 5px solid #f4c842;
+}
+
+.block-mar {
+    border-left: 5px solid #3ef2b9;
+}

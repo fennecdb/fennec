@@ -1,0 +1,66 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package db.fennec.api.proto;
+
+import "Fennec.proto";
+
+option java_outer_classname = "FennecServiceProto";
+
+// CMD STATUS
+message FStatus {
+    int64 status_code = 1;
+    string message = 2;
+}
+
+// QUERY
+message FQueryReq {
+    string field = 1;
+    string namespace = 2;
+    int64 in_range_low = 3;
+    int64 in_range_high = 4;
+}
+
+message FQueryResp {
+    FStatus status = 1;
+    db.fennec.proto.FResultProto result = 2;
+}
+
+// INSERT / UPSERT
+message FWriteReq {
+    repeated db.fennec.proto.FDataEntryProto payload = 1;
+}
+
+// remove FIELD (in range)
+message FRemoveReq {
+    int64 in_range_low = 1;
+    int64 in_range_high = 2;
+    string field = 3;
+    string namespace = 4;
+}
+
+// remove NAMESPACE
+message FRemoveNSReq {
+    string namespace = 1;
+}
+
+// LIST
+message FListReq {
+    string field = 1;
+    string namespace = 2;
+}
+
+message FListResp {
+    FStatus status = 1;
+    repeated string field = 2;
+}
+
+// SERVICE
+service FennecService {
+    rpc query(FQueryReq) returns (FQueryResp);
+    rpc insert(FWriteReq) returns (FStatus);
+    rpc upsert(FWriteReq) returns (FStatus);
+    rpc remove(FRemoveReq) returns (FStatus);
+    rpc removeNS(FRemoveNSReq) returns (FStatus);
+    rpc list(FListReq) returns (FListResp);
+}
+
