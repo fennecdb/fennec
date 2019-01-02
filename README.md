@@ -6,7 +6,7 @@ Fennec aims to be a general purpose timeseries database.
 
 ## Goals / Features in the works
 * TCP client for the JVM (✔️), Node, Ruby, C# and Python (❌)
-* Grafana support (Datasource API & Plugin) ✔️
+* Grafana support (Datasource API & Plugin) ✔️ (Plugin not public yet)
 * REST API ❌
 * Distributed (backup/replica) ❌
 * Prometheus exporter ❌
