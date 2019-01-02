@@ -1,4 +1,4 @@
-# Fennec 🦊
+# Fennec 🦊 (Work-in-Progress)
 
 Fennec aims to be a general purpose timeseries database.
 
