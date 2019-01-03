@@ -3,7 +3,7 @@ package db.fennec.api.grpc.server
 import com.google.common.collect.HashMultimap
 import com.google.common.flogger.FluentLogger
 import db.fennec.api.proto.*
-import db.fennec.error.FennecException
+import db.fennec.error.FennecServerException
 import db.fennec.error.FennecExternalExceptionException
 import db.fennec.error.FennecInternalException
 import db.fennec.error.Status
@@ -19,7 +19,7 @@ import io.grpc.stub.StreamObserver
 
 open class FennecGrpcServerImpl(val driver: FennecDriver) : FennecServiceGrpc.FennecServiceImplBase() {
 
-    fun <T> reply(observer: StreamObserver<T>, handleFailure: (FennecException) -> T, body: () -> T) {
+    fun <T> reply(observer: StreamObserver<T>, handleFailure: (FennecServerException) -> T, body: () -> T) {
         with (observer) {
             try {
                 val response = body.invoke()
@@ -127,7 +127,7 @@ open class FennecGrpcServerImpl(val driver: FennecDriver) : FennecServiceGrpc.Fe
                 .setStatusCode(Status.OK.getCode())
                 .build()
 
-        fun handleFail(e: FennecException): FStatus {
+        fun handleFail(e: FennecServerException): FStatus {
             return FStatus.newBuilder()
                     .setMessage(e.structuredMsg)
                     .setStatusCode(e.status.getCode())
