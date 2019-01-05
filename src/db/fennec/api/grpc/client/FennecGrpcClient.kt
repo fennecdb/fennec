@@ -1,23 +1,16 @@
 package db.fennec.api.grpc.client
 
 import com.google.common.collect.HashMultimap
-import com.google.common.collect.Multimap
 import com.google.common.flogger.FluentLogger
-import com.google.common.util.concurrent.RateLimiter
 import db.fennec.api.proto.*
 import db.fennec.fql.FQuery
-import db.fennec.fql.FSelection
-import db.fennec.fql.InRange
-import db.fennec.kv.Key
-import db.fennec.proto.FDataBucketProto
 import db.fennec.proto.FDataEntryProto
 import db.fennec.proto.FDataProto
 import db.fennec.fql.FData
 import db.fennec.fql.FResult
+import db.fennec.fql.Key
 import io.grpc.ManagedChannel
 import io.grpc.ManagedChannelBuilder
-import io.grpc.StatusRuntimeException
-import java.time.Instant
 import java.util.concurrent.TimeUnit
 import java.util.stream.Collectors
 
@@ -112,8 +105,6 @@ internal class FennecGrpcClient(val host: String = "localhost", val port: Int = 
         @JvmStatic private val log = FluentLogger.forEnclosingClass()
 
         private val DEADLINE_SEC: Long = 15
-
-        data class Key(val field: String, val ns: String)
     }
 }
 

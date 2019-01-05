@@ -7,13 +7,9 @@ import db.fennec.error.FennecServerException
 import db.fennec.error.FennecExternalExceptionException
 import db.fennec.error.FennecInternalException
 import db.fennec.error.Status
-import db.fennec.fql.FQuery
-import db.fennec.fql.FSelection
-import db.fennec.fql.InRange
-import db.fennec.kv.Key
+import db.fennec.fql.*
 import db.fennec.proto.FDataEntryProto
 import db.fennec.proto.FResultProto
-import db.fennec.fql.FData
 import db.fennec.timeseries.driver.FennecDriver
 import io.grpc.stub.StreamObserver
 

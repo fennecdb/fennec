@@ -1,6 +1,6 @@
 package db.fennec.kv
 
-import db.fennec.timeseries.driver.FennecRawDriver
+import db.fennec.fql.Key
 import java.io.Closeable
 
 interface KV : Closeable {
@@ -20,5 +20,3 @@ interface KV : Closeable {
     fun list(): Iterable<String>
 
 }
-
-data class Key(val ns: String, val field: String)

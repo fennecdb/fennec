@@ -12,17 +12,20 @@ import io.grpc.ServerBuilder
 import java.lang.Exception
 import java.util.concurrent.Executors
 
-class FennecGrpcServer(val port: Int) : Runnable {
+class FennecGrpcServer(
+        val grpcPort: Int = GlobalConstants.DEFAULT_GRPC_PORT,
+        val restPort: Int = GlobalConstants.DEFAULT_REST_PORT) : Runnable {
 
     private val threadFactory = ThreadFactoryBuilder()
             .setNameFormat("fennec-api-worker-%d")
             .build()
     private val executors = MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(100, threadFactory))
     private val driver: FennecDriver = FennecRawDriver(true)
-    private val restServer = FennecRestServer(driver)
+    private val restServer: FennecRestServer
     private val implementation = FennecGrpcServerImpl(driver)
 
     init {
+        restServer = FennecRestServer(driver, restPort)
         restServer.launchAsync()
     }
 
@@ -32,17 +35,20 @@ class FennecGrpcServer(val port: Int) : Runnable {
         MaintenanceWorker(driver)
         try {
             val server = ServerBuilder
-                    .forPort(port)
+                    .forPort(grpcPort)
                     .executor(executors)
                     .addService(implementation)
                     .build()
             server.start()
-            log.atInfo().log("> Listening at port '$port'")
+            log.atInfo().log("> Listening at port '$grpcPort'")
             server.awaitTermination()
         } catch (e: Exception) {
             log.atSevere().withCause(e).log("Fennec encountered a critical error and will shutdown itself immediately...")
         }
+    }
 
+    fun stop() {
+        implementation.close()
     }
 
     private fun registerShutdownHook() {
@@ -62,5 +68,5 @@ class FennecGrpcServer(val port: Int) : Runnable {
 }
 
 fun main(args: Array<String>) {
-    FennecGrpcServer(GlobalConstants.DEFAULT_GRPC_PORT).run()
+    FennecGrpcServer(GlobalConstants.DEFAULT_GRPC_PORT, 5000).run()
 }

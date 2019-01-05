@@ -44,7 +44,7 @@ data class GrfQueryRequest(
             }
             val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
             parser.calendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Luxembourg"))
-            return parser.parse(dateString).time + 1000 * 60 * 60 // off by 1 hour
+            return parser.parse(dateString).time
         }
     }
 }

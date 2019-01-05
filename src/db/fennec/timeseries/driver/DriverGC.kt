@@ -3,10 +3,10 @@ package db.fennec.timeseries.driver
 import com.google.common.flogger.FluentLogger
 import com.google.common.util.concurrent.RateLimiter
 import com.google.common.util.concurrent.Uninterruptibles
+import db.fennec.fql.Key
 import db.fennec.gatekeeper.Gatekeeper
 import db.fennec.gatekeeper.LocalGatekeeper
 import db.fennec.kv.KV
-import db.fennec.kv.Key
 import db.fennec.proto.FMetaLabelProto
 import db.fennec.proto.FMetaProto
 import io.atomix.protocols.raft.MultiRaftProtocol
@@ -42,7 +42,7 @@ class DriverGC(val kv: KV, val gatekeeper: Gatekeeper = LocalGatekeeper()) : Run
     }
 
     private fun cleanupMeta(ns: String, rawMetaKey: String) {
-        val metaKey = Key(ns, rawMetaKey)
+        val metaKey = Key(ns = ns, field = rawMetaKey)
         val bytes = kv.get(metaKey)
         val metaProto = FMetaProto.parseFrom(bytes)
         val colonIndex = rawMetaKey.indexOf(':')
@@ -51,7 +51,7 @@ class DriverGC(val kv: KV, val gatekeeper: Gatekeeper = LocalGatekeeper()) : Run
             gatekeeper.acquire(field, ns) {
                 val filteredLabels = ArrayList<FMetaLabelProto>()
                 for (usedLabel in metaProto.usedLabelList) {
-                    val bucketBytes = kv.get(Key(ns, usedLabel.label))
+                    val bucketBytes = kv.get(Key(ns = ns, field = usedLabel.label))
                     println(usedLabel.label + " = ${bucketBytes?.size}")
                     if (bucketBytes!!.isEmpty()) {
                         kv.remove(Key(ns = ns, field = field))

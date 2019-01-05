@@ -1,6 +1,7 @@
 package db.fennec.api.grpc.client;
 
 import com.google.common.flogger.FluentLogger;
+import com.google.common.util.concurrent.RateLimiter;
 import db.fennec.api.grpc.client.error.FennecException;
 import db.fennec.fql.FData;
 import db.fennec.fql.FQuery;
@@ -18,9 +19,17 @@ public class FennecClient implements Closeable {
     private int port;
     private FennecGrpcClient client;
 
-    public FennecClient(String host, int port) {
+    public FennecClient(String host, int port) throws FennecException {
+        this(host, port, false);
+    }
+
+    public FennecClient(String host, int port, boolean connectDirectly) throws FennecException {
         this.host = host;
         this.port = port;
+        this.client = new FennecGrpcClient(host, port);
+        if (connectDirectly) {
+            connect();
+        }
     }
 
     public FResult query(FQuery query) throws FennecException {
@@ -70,12 +79,26 @@ public class FennecClient implements Closeable {
     }
 
     public void connect() throws FennecException {
-        try {
-            client.connect();
-        } catch (Exception e) {
-            log.atWarning().withCause(e).log("Failed to connect to server (%s:%s) due to: '%s'", host, port, e.getMessage());
-            // TODO
-            throw new FennecException(-1, String.format("Failed to connect to server (%s:%s)", host, port));
+        boolean successful = false;
+        int retryLimit = 60;
+        int i = 0;
+        RateLimiter rateLimiter = RateLimiter.create(0.5);
+
+        while (!successful && i < retryLimit) {
+            try {
+                rateLimiter.acquire();
+                log.atInfo().log("Trying to connect to '%s:%s'... (%s/%s)", host, port, i, retryLimit);
+                client.connect();
+                successful = true;
+                log.atInfo().log("Connected to '%s:%s'.", host, port);
+            } catch (Exception e) {
+                log.atWarning().withCause(e).log("Failed to connect to server '%s:%s' (%s/%s)", host, port, i, retryLimit);
+            } finally {
+                i++;
+            }
+        }
+        if (!successful) {
+            throw new FennecException(-1, String.format("Unable to connect to server (%s:%s), retrylimit exceeded.", host, port));
         }
     }
 

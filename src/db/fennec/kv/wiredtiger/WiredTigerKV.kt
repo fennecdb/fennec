@@ -2,11 +2,9 @@ package db.fennec.kv.wiredtiger
 
 import com.google.common.flogger.FluentLogger
 import com.wiredtiger.db.WiredTigerException
+import db.fennec.fql.Key
 import db.fennec.kv.KV
-import db.fennec.kv.Key
-import db.fennec.timeseries.driver.FennecRawDriver
 import java.util.concurrent.Semaphore
-import java.util.concurrent.TimeUnit
 
 class WiredTigerKV(shouldDirectlyOpen: Boolean = false) : KV {
 
@@ -145,8 +143,8 @@ class WiredTigerKV(shouldDirectlyOpen: Boolean = false) : KV {
 fun main(args: Array<String>) {
     val kv = WiredTigerKV()
     kv.open()
-    kv.put(Key("test", "a"), "someString".toByteArray())
-    val bytes = kv.get(Key("test", "a"))
+    kv.put(Key(ns = "test", field = "a"), "someString".toByteArray())
+    val bytes = kv.get(Key(ns = "test", field = "a"))
 
     println("pay:${String(bytes!!)}")
     kv.close()

@@ -4,16 +4,12 @@ import com.google.common.collect.HashMultimap
 import com.google.common.collect.ImmutableSet
 import com.google.common.collect.Multimap
 import com.google.common.flogger.FluentLogger
-import db.fennec.fql.FQuery
-import db.fennec.fql.FSelection
-import db.fennec.fql.InRange
+import db.fennec.fql.*
 import db.fennec.kv.KV
-import db.fennec.kv.Key
 import db.fennec.kv.wiredtiger.WiredTigerKV
 import db.fennec.proto.FDataBucketProto
 import db.fennec.proto.FMetaLabelProto
 import db.fennec.proto.FMetaProto
-import db.fennec.fql.FData
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Test
@@ -26,9 +22,9 @@ class FennecRawDriverTest {
     private val dThree = FData(5.0, 1544912251000)
     private val dFour = FData(3.0, 1544912246030)
     private val dFive = FData(4.0, 1544912246030)
-    private val keyOne = Key(TEST_NS, "abc:1544912244000")
-    private val keyTwo = Key(TEST_NS, "abc:1544912248000")
-    private val metaKey = Key(TEST_NS, "abc:meta")
+    private val keyOne = Key(ns = TEST_NS, field = "abc:1544912244000")
+    private val keyTwo = Key(ns = TEST_NS, field = "abc:1544912248000")
+    private val metaKey = Key(ns = TEST_NS, field = "abc:meta")
 
     @After
     fun after() {

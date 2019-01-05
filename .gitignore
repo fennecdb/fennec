@@ -9,6 +9,7 @@ run.sh
 protogen.sh
 protoc3/
 protobuf-3.5.1/
+out/
 
 # Compiled class file
 *.class

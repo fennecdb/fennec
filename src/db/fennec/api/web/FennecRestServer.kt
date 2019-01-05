@@ -16,7 +16,7 @@ import jdk.nashorn.internal.objects.Global
 import org.apache.commons.io.FileUtils
 import java.io.File
 
-class FennecRestServer(val driver: FennecDriver) : AbstractVerticle() {
+class FennecRestServer(val driver: FennecDriver, val restPort: Int = GlobalConstants.DEFAULT_REST_PORT) : AbstractVerticle() {
 
     private var innerThread: Thread? = null
 
@@ -86,7 +86,7 @@ class FennecRestServer(val driver: FennecDriver) : AbstractVerticle() {
             respondJson(routingContext, grfTagValueView.render(routingContext))
         }
 
-        vertx.createHttpServer().requestHandler(router).listen(GlobalConstants.DEFAULT_REST_PORT)
+        vertx.createHttpServer().requestHandler(router).listen(restPort)
     }
 
     fun RoutingContext.respondHtml(html: String) {

@@ -10,19 +10,13 @@ import db.fennec.core.Metrics
 import db.fennec.core.Metrics.Companion.FDRIVER_INSERT_REQ
 import db.fennec.core.Metrics.Companion.FDRIVER_REMOVE_NS_REQ
 import db.fennec.core.Metrics.Companion.FDRIVER_UPSERT_REQ
-import db.fennec.fql.FQuery
-import db.fennec.fql.FSelection
-import db.fennec.fql.InRange
+import db.fennec.fql.*
 import db.fennec.gatekeeper.Gatekeeper
 import db.fennec.gatekeeper.LocalGatekeeper
 import db.fennec.kv.KV
-import db.fennec.kv.Key
 import db.fennec.kv.wiredtiger.WiredTiger
 import db.fennec.kv.wiredtiger.WiredTigerKV
 import db.fennec.proto.*
-import db.fennec.fql.FData
-import db.fennec.fql.FDataBucket
-import db.fennec.fql.FResult
 import db.fennec.timeseries.driver.FennecDriverCommons.Companion.createBucket
 import db.fennec.timeseries.driver.FennecDriverCommons.Companion.createLabel
 import db.fennec.timeseries.driver.FennecDriverCommons.Companion.createMetaLabel
@@ -103,7 +97,7 @@ class FennecRawDriver(
                 gatekeeper.acquire(field, ns) {
                     // eval query
                     val metaLabel = createMetaLabel(field)
-                    val bytes = kv.get(Key(ns, metaLabel))
+                    val bytes = kv.get(Key(ns = ns, field = metaLabel))
                     val meta = FMetaProto.parseFrom(bytes)
                     val timePerBucket = meta.timePerBucket
                     if (timePerBucket > 0) {
@@ -122,7 +116,7 @@ class FennecRawDriver(
 
                             val isIn = x1 <= y1 || x2 <= y2
                             if (isIn) {
-                                toBeLoadedKeys.add(Key(ns, bucket.label))
+                                toBeLoadedKeys.add(Key(ns = ns, field = bucket.label))
                             }
                         }
                         // reduce
@@ -151,7 +145,7 @@ class FennecRawDriver(
         var timePerBucket: Long = 0
         gatekeeper.acquire(field, ns) {
             val metaLabel = createMetaLabel(field)
-            val metaKey = Key(ns, metaLabel)
+            val metaKey = Key(ns = ns, field = metaLabel)
             val metaBytes = kv.get(metaKey)
             if (metaBytes != null) {
                 val kvMeta = FMetaProto.parseFrom(metaBytes)
@@ -163,7 +157,7 @@ class FennecRawDriver(
                 var minSize = 0
                 val data: Multimap<Key, ByteArray> = HashMultimap.create()
                 for (meta in kvMeta.usedLabelList) {
-                    val key = Key(ns, meta.label)
+                    val key = Key(ns = ns, field = meta.label)
                     val bytes = kv.get(key)
                     if (bytes != null && bytes.isNotEmpty()) {
                         totalSize += bytes.size
@@ -246,7 +240,7 @@ class FennecRawDriver(
     private fun write(data: Iterable<FData>, shouldOverwrite: Boolean, field: String, ns: String, timePerBucket: Long? = null) {
         gatekeeper.acquire(field, ns) {
             val metaLabel = createMetaLabel(field)
-            val metaKey = Key(ns, metaLabel)
+            val metaKey = Key(ns = ns, field = metaLabel)
             val metaBytes = kv.get(metaKey)
 
             var usedTimePerBucket = timePerBucket
@@ -276,7 +270,7 @@ class FennecRawDriver(
             val entry = toBeStored.entries.iterator().next()
             val field = label2FieldMapping[entry.key.field]!!
             val metaLabel = createMetaLabel(field)
-            val metaKey = Key(ns, metaLabel)
+            val metaKey = Key(ns = ns, field = metaLabel)
 
             val data = FMetaProto.newBuilder()
             val kvMetaData = kv.get(metaKey)
@@ -319,7 +313,7 @@ class FennecRawDriver(
 
         for (label in transformedContent.keySet()) {
             val fDataList = transformedContent[label]
-            val currentKey = Key(ns, label)
+            val currentKey = Key(ns = ns, field = label)
             log.atInfo().log("Storing: $currentKey")
 
             if (kvContent.containsKey(label)) {
@@ -376,7 +370,7 @@ class FennecRawDriver(
             // preload kv content for all labels
             if (!loadedLabels.contains(label)) {
                 loadedLabels.add(label)
-                val bytes = kv.get(Key(ns, label))
+                val bytes = kv.get(Key(ns = ns, field = label))
                 if (bytes != null) {
                     val entries = FDataBucketProto.parseFrom(bytes)
                     kvContent.put(label, FDataBucket.fromProto(entries))
@@ -402,7 +396,7 @@ fun main(args: Array<String>) {
     val ns = "test"
 
     WiredTigerKV(true).use {
-        it.remove(Key(ns, "x:d4:meta"))
+        it.remove(Key(ns = ns, field = "x:d4:meta"))
     }
     FennecRawDriver(true).use { driver ->
         val data = ArrayList<FData>()
@@ -422,7 +416,7 @@ fun main(args: Array<String>) {
         }
     }
     WiredTigerKV(true).use { kv ->
-        val payload = kv.get(Key(ns, "x:d4:1544912244000"))
+        val payload = kv.get(Key(ns = ns, field = "x:d4:1544912244000"))
         val entries = FDataBucketProto.parseFrom(payload)
         println("${entries.dataList.size}, data:'${entries}'")
     }

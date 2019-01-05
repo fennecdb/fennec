@@ -2,19 +2,13 @@ package db.fennec
 
 import com.google.common.flogger.FluentLogger
 import com.google.common.flogger.LoggerConfig
-import com.google.common.util.concurrent.MoreExecutors
-import com.google.common.util.concurrent.ThreadFactoryBuilder
 import db.fennec.Launcher.Companion.logger
 import db.fennec.core.ArgumentParser
-import db.fennec.core.ArgumentParser.Companion.OPTION_PORT
-import db.fennec.core.GlobalConstants
 import db.fennec.remote.operation.PantheraOperation
 import db.fennec.fql.FData
 import db.fennec.timeseries.driver.FennecRawDriver
-import io.grpc.ServerBuilder
 import org.apache.commons.cli.CommandLine
 import java.util.concurrent.ConcurrentLinkedQueue
-import java.util.concurrent.Executors
 import java.util.concurrent.Semaphore
 import java.util.logging.Level
 
@@ -27,44 +21,6 @@ class Launcher(args: Array<String>) : Runnable {
     }
 
     override fun run() {
-//        SESSION.openSession()
-//        CORE.loadTableNames()
-//
-//        val threadFactory = ThreadFactoryBuilder()
-//                .setNameFormat("fennec-worker-%d")
-//                .build()
-//
-//        val executors = MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(100, threadFactory))
-//
-//        var usedPort: Int = GlobalConstants.PORT
-//        if (clArgs != null && clArgs!!.hasOption(OPTION_PORT)) {
-//            usedPort = clArgs?.getOptionValue(OPTION_PORT)!!.toInt()
-//        }
-//
-//        println("$APP_NAME v${GlobalConstants.VERSION} starting... (Host: 'localhost', Port: $usedPort)")
-//
-////        MaintenanceWorker()
-//        try {
-//            val server = ServerBuilder
-//                    .forPort(usedPort)
-//                    .executor(executors)
-////                    .addService(KVRemoteProcedureProvider())
-//                    .build()
-//            server.start()
-//
-//            Runtime.getRuntime().addShutdownHook(object : Thread() {
-//                override fun run() {
-//                    println("$APP_NAME shutting down...")
-////                    SESSION.closeSession()
-//                    println("$APP_NAME shutdown. See you next time :)")
-//                }
-//            })
-//
-//            server.awaitTermination()
-////            executors.shutdown()
-//        } catch (e: Exception) {
-//            System.err.println("$APP_NAME encountered a critical error and will shutdown itself immediately.\nInformation: ''")
-//        }
     }
 
     companion object {
