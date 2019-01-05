@@ -3,11 +3,11 @@ sudo: required
 language: java
 
 before_install:
-  - apt get update
-  - apt-get install -y autoconf
-  - apt-get install -y automake
-  - apt-get install -y libtool
-  - apt-get install -y swig
+  - apt update
+  - apt install -y autoconf
+  - apt install -y automake
+  - apt install -y libtool
+  - apt install -y swig
   - cd ~/
   - git clone https://github.com/wiredtiger/wiredtiger
   - cd wiredtiger/
