@@ -17,3 +17,4 @@ before_install:
   - sudo make install
   - sudo cp /usr/local/lib/libwiredtiger* /usr/local/share/java/wiredtiger-3.1.0/
   - cd ../
+  - sudo chown -R "$whoami" /etc/fennec
