@@ -20,8 +20,32 @@ Fennec aims to be a general purpose timeseries database.
 * JDK 8
 * WiredTiger 3.1.0 ([repo](https://github.com/wiredtiger/wiredtiger))
 
-### WiredTiger Installation 
-TODO
+### WiredTiger Installation
+
+
+1. Clone the repository
+    ```
+    git clone https://github.com/wiredtiger/wiredtiger
+    cd wiredtiger/
+    git checkout 81305b4ade4b92bde247931334c99c32fb148c44
+    ```
+2. Install additional build requirements (apt for Ubuntu/Debian)
+    ```
+    sudo apt install -y autoconf automake libtool swig build-essential
+    ```
+
+3. Build the library
+    ```
+    sh autogen.sh
+    ./configure -enable-java
+    make
+    make install
+    ```
+4. Merge to common directory
+    ```
+    cp /usr/local/lib/libwiredtiger* /usr/local/share/java/wiredtiger-3.1.0/
+    ```
+__OR__ alternatively use the script at `scripts/install_wt.sh` doing the steps above all at once.
 
 ### Fennec Installation
 TODO
