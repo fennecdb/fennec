@@ -1,0 +1,19 @@
+sudo: required
+
+language: java
+
+before_install:
+  - apt get update
+  - apt-get install -y autoconf
+  - apt-get install -y automake
+  - apt-get install -y libtool
+  - apt-get install -y swig
+  - cd ~/
+  - git clone https://github.com/wiredtiger/wiredtiger
+  - cd wiredtiger/
+  - git checkout 81305b4ade4b92bde247931334c99c32fb148c44
+  - sh autogen.sh
+  - ./configure -enable-java
+  - make
+  - make install
+  - cp /usr/local/lib/libwiredtiger* /usr/local/share/java/wiredtiger-3.1.0/
