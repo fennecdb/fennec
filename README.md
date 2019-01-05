@@ -1,5 +1,7 @@
 # Fennec 🦊 (Work-in-Progress)
 
+[![Build Status](https://travis-ci.com/fennecdb/fennec.svg?branch=master)](https://travis-ci.com/fennecdb/fennec)
+
 Fennec aims to be a general purpose timeseries database.
 
 > ⚠️ This project is in its early development infancy and should not be used (in its current state) for any data that you care about. This warning will be removed once its stability/reliability is battle proven.
