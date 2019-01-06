@@ -19,9 +19,9 @@ Fennec aims to be a general purpose timeseries database.
 ### Requirements
 * JDK 8
 * WiredTiger 3.1.0 ([repo](https://github.com/wiredtiger/wiredtiger))
+* Gradle
 
 ### WiredTiger Installation
-
 
 1. Clone the repository
     ```
@@ -48,7 +48,28 @@ Fennec aims to be a general purpose timeseries database.
 __OR__ alternatively use the script at `scripts/install_wt.sh` doing the steps above all at once.
 
 ### Fennec Installation
-TODO
+
+1. Clone the repository
+    ```
+    git clone https://github.com/fennecdb/fennec
+    cd fennec/
+    ```
+2. [Optional] Test the current build (should finish with `BUILD SUCCESSFUL`)
+    ```
+    ./gradlew build 
+    ```
+3. Build fennec's _fat_ jar
+    ```
+    ./gradlew shadowJar
+    ```
+4. Move to proper installation directory
+    ```
+    sudo mkdir /etc/fennec
+    sudo chown -R `whoami` /etc/fennec
+    mv build/libs/fennec.jar /etc/fennec
+    ```
+    
+__OR__ alternatively use the script at `scripts/install_fe.sh` doing the steps above all at once.
 
 ## Getting Started
 TODO
