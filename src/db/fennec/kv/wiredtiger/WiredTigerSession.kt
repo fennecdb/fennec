@@ -56,7 +56,7 @@ class WiredTigerSession(shouldOpenSessionDirectly: Boolean = false) : Closeable 
     }
 
     // Note: Very expensive call ('wt' only feature (CLI tool))
-    fun list(): Multimap<String, String> {
+    fun cliList(): Multimap<String, String> {
         val wasSessionOpen = isSessionOpen
         if (isSessionOpen) { // need to close session to execute wt command
             closeSession()

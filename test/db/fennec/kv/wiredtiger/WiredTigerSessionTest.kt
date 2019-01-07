@@ -50,17 +50,6 @@ class WiredTigerSessionTest {
         }
     }
 
-    @Test
-    fun testList() {
-        val session = WiredTiger.createSession(true)
-        session.use {
-            it.openCursor(TEST_TABLE)
-            val list = it.list()
-            log.atInfo().log("List:$list")
-            assertTrue("List does not contain table $TEST_TABLE", list["table"].contains(TEST_TABLE))
-        }
-    }
-
     companion object {
         internal const val TEST_TABLE = "fennec_wt_session_test"
 

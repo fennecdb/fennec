@@ -142,6 +142,16 @@ class FennecRawDriverTest {
         }
     }
 
+    @Test
+    fun testListNS() {
+        FennecRawDriver(true).use { driver ->
+            driver.insert(iterable(dOne, dTwo, dThree, dFour), field, TEST_NS)
+            val namespaces = driver.listNS().toSet()
+            log.atInfo().log("Namespaces:$namespaces")
+            assertTrue("Namespaces does not contain $TEST_NS", namespaces.contains(TEST_NS))
+        }
+    }
+
     private fun <T> iterable(vararg value: T): Iterable<T> {
         val data = ArrayList<T>()
         for (v in value.iterator()) {

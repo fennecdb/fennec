@@ -4,6 +4,7 @@ import com.google.common.flogger.FluentLogger
 import com.wiredtiger.db.WiredTigerException
 import db.fennec.fql.Key
 import db.fennec.kv.KV
+import db.fennec.proto.FNamespacesProto
 import java.util.concurrent.Semaphore
 
 class WiredTigerKV(shouldDirectlyOpen: Boolean = false) : KV {
@@ -51,10 +52,38 @@ class WiredTigerKV(shouldDirectlyOpen: Boolean = false) : KV {
         return isOpen
     }
 
+    private fun logNS(ns: String) {
+        val cursor = session.openCursor(META_TABLE)
+        val bytes = cursor.get(META_NS_KEY)
+
+        val namespaces = HashSet<String>()
+
+        if (bytes.isNotEmpty()) {
+            val proto = FNamespacesProto.parseFrom(bytes)!!
+            namespaces.addAll(proto.nsList)
+        }
+        namespaces.add(ns)
+        cursor.overwrite(META_NS_KEY, FNamespacesProto.newBuilder().addAllNs(namespaces).build().toByteArray())
+    }
+
+    private fun unlogNS(ns: String) {
+        val cursor = session.openCursor(META_TABLE)
+        val bytes = cursor.get(META_NS_KEY)
+
+        if (bytes.isNotEmpty()) {
+            val proto = FNamespacesProto.parseFrom(bytes)!!
+            val namespaces = HashSet<String>()
+            namespaces.addAll(proto.nsList)
+            namespaces.remove(ns)
+            cursor.overwrite(META_NS_KEY, FNamespacesProto.newBuilder().addAllNs(namespaces).build().toByteArray())
+        }
+    }
+
     override fun put(key: Key, value: ByteArray) {
         acquire {
             val cursor = session.openCursor(key.ns)
             cursor.overwrite(key.field, value)
+            logNS(key.ns)
         }
     }
 
@@ -63,6 +92,7 @@ class WiredTigerKV(shouldDirectlyOpen: Boolean = false) : KV {
             for (keyValue in keyVals) {
                 val cursor = session.openCursor(keyValue.key.ns)
                 cursor.overwrite(keyValue.key.field, keyValue.value)
+                logNS(keyValue.key.ns)
             }
         }
     }
@@ -106,6 +136,7 @@ class WiredTigerKV(shouldDirectlyOpen: Boolean = false) : KV {
     override fun remove(ns: String) {
         acquire {
             session.deleteTable(ns)
+            unlogNS(ns)
         }
     }
 
@@ -123,9 +154,14 @@ class WiredTigerKV(shouldDirectlyOpen: Boolean = false) : KV {
     override fun list(): Iterable<String> {
         val result = ArrayList<String>()
         acquire {
-            val tables = session.list()["table"]
-            if (tables.isNotEmpty()) {
-                result.addAll(tables)
+            val cursor = session.openCursor(META_TABLE)
+            val bytes = cursor.get(META_NS_KEY)
+
+            if (bytes.isNotEmpty()) {
+                val proto = FNamespacesProto.parseFrom(bytes)!!
+                if (proto.nsCount > 0) {
+                    result.addAll(proto.nsList)
+                }
             }
         }
         return result
@@ -133,6 +169,9 @@ class WiredTigerKV(shouldDirectlyOpen: Boolean = false) : KV {
 
     companion object {
         @JvmStatic private val log = FluentLogger.forEnclosingClass()
+
+        private val META_TABLE = "Fennec"
+        private val META_NS_KEY = "namespaces"
 
         private val FIFO_GUARANTEE = false
         // only 1 thread can use the session, and no fifo guaranteed (faster)

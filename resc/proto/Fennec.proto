@@ -32,3 +32,7 @@ message FMetaLabelProto {
     string label = 1;
     int64 timestamp = 2;
 }
+
+message FNamespacesProto {
+    repeated string ns = 1;
+}
