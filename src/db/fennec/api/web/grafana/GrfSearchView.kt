@@ -2,14 +2,13 @@ package db.fennec.api.web.grafana
 
 import com.google.gson.JsonArray
 import db.fennec.api.web.View
-import db.fennec.timeseries.driver.FennecDriver
+import db.fennec.driver.FennecDriver
 import io.vertx.ext.web.RoutingContext
 import com.google.common.cache.CacheLoader
 import java.util.concurrent.TimeUnit
 import com.google.common.cache.CacheBuilder
 import com.google.common.cache.LoadingCache
 import db.fennec.api.web.FennecRestServer.Companion.respondJson
-import db.fennec.timeseries.driver.FennecRawDriver
 import java.lang.Exception
 
 

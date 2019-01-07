@@ -1,4 +1,4 @@
-package db.fennec.timeseries.driver
+package db.fennec.driver
 
 import com.google.common.flogger.FluentLogger
 import com.google.common.util.concurrent.RateLimiter

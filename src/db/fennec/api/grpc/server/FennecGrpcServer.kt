@@ -6,8 +6,8 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder
 import db.fennec.api.web.FennecRestServer
 import db.fennec.core.GlobalConstants
 import db.fennec.core.MaintenanceWorker
-import db.fennec.timeseries.driver.FennecDriver
-import db.fennec.timeseries.driver.FennecRawDriver
+import db.fennec.driver.FennecDriver
+import db.fennec.driver.FennecRawDriver
 import io.grpc.ServerBuilder
 import java.lang.Exception
 import java.util.concurrent.Executors

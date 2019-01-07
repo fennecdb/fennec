@@ -2,8 +2,8 @@ package db.fennec.api.web.rest
 
 import com.codahale.metrics.Meter
 import db.fennec.api.web.View
-import db.fennec.timeseries.driver.DriverMetric
-import db.fennec.timeseries.driver.FennecDriver
+import db.fennec.driver.DriverMetric
+import db.fennec.driver.FennecDriver
 import io.vertx.ext.web.RoutingContext
 import j2html.TagCreator.*
 import java.time.Instant

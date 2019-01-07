@@ -1,4 +1,4 @@
-package db.fennec.timeseries.driver
+package db.fennec.driver
 
 import com.google.common.collect.HashMultimap
 import com.google.common.collect.ImmutableSet

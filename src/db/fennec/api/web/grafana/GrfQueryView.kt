@@ -9,7 +9,7 @@ import db.fennec.api.web.View
 import db.fennec.api.web.grafana.requests.GrfQueryRequest
 import db.fennec.fql.FSelection
 import db.fennec.fql.InRange
-import db.fennec.timeseries.driver.FennecDriver
+import db.fennec.driver.FennecDriver
 import io.vertx.ext.web.RoutingContext
 import java.io.InvalidObjectException
 import java.util.stream.Collectors

@@ -5,14 +5,13 @@ import db.fennec.api.web.grafana.*
 import db.fennec.api.web.rest.DashboardView
 import db.fennec.api.web.rest.RootView
 import db.fennec.core.GlobalConstants
-import db.fennec.timeseries.driver.FennecDriver
-import db.fennec.timeseries.driver.FennecRawDriver
+import db.fennec.driver.FennecDriver
+import db.fennec.driver.FennecRawDriver
 import io.vertx.core.AbstractVerticle
 import io.vertx.core.Vertx
 import io.vertx.core.VertxOptions
 import io.vertx.ext.web.Router
 import io.vertx.ext.web.RoutingContext
-import jdk.nashorn.internal.objects.Global
 import org.apache.commons.io.FileUtils
 import java.io.File
 

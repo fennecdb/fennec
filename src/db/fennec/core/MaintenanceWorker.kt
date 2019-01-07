@@ -2,7 +2,7 @@ package db.fennec.core
 
 import com.google.common.flogger.FluentLogger
 import db.fennec.core.Metrics.Companion.MAINT_WORKER_IT
-import db.fennec.timeseries.driver.FennecDriver
+import db.fennec.driver.FennecDriver
 import java.util.Timer
 import java.util.TimerTask
 

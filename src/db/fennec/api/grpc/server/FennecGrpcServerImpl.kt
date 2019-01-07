@@ -10,7 +10,7 @@ import db.fennec.error.Status
 import db.fennec.fql.*
 import db.fennec.proto.FDataEntryProto
 import db.fennec.proto.FResultProto
-import db.fennec.timeseries.driver.FennecDriver
+import db.fennec.driver.FennecDriver
 import io.grpc.stub.StreamObserver
 
 open class FennecGrpcServerImpl(val driver: FennecDriver) : FennecServiceGrpc.FennecServiceImplBase() {

@@ -1,4 +1,4 @@
-package db.fennec.timeseries.driver
+package db.fennec.driver
 
 import db.fennec.fql.FData
 import db.fennec.fql.FDataBucket

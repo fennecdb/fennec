@@ -1,4 +1,4 @@
-package db.fennec.timeseries.driver
+package db.fennec.driver
 
 enum class DriverMetric {
     QUERY_REQ,

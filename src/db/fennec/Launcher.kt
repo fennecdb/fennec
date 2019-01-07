@@ -4,12 +4,9 @@ import com.google.common.flogger.FluentLogger
 import com.google.common.flogger.LoggerConfig
 import db.fennec.Launcher.Companion.logger
 import db.fennec.core.ArgumentParser
-import db.fennec.remote.operation.PantheraOperation
 import db.fennec.fql.FData
-import db.fennec.timeseries.driver.FennecRawDriver
+import db.fennec.driver.FennecRawDriver
 import org.apache.commons.cli.CommandLine
-import java.util.concurrent.ConcurrentLinkedQueue
-import java.util.concurrent.Semaphore
 import java.util.logging.Level
 
 class Launcher(args: Array<String>) : Runnable {
@@ -26,11 +23,6 @@ class Launcher(args: Array<String>) : Runnable {
     companion object {
         @JvmStatic val logger = FluentLogger.forEnclosingClass()
 
-        private val FIFO_GUARANTEE = false
-        // only 1 thread can use the session, and no fifo guaranteed (faster)
-        @JvmStatic val SESSION_SEMA = Semaphore(1, FIFO_GUARANTEE)
-        @JvmStatic val OPERATIONS = ConcurrentLinkedQueue<PantheraOperation>()
-//        @JvmStatic internal var SESSION: WiredTigerSession = WiredTigerSession()
         @JvmStatic val APP_NAME = "Fennec"
         @JvmStatic val VERSION = "v0.1"
     }

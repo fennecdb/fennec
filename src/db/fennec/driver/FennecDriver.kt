@@ -1,4 +1,4 @@
-package db.fennec.timeseries.driver
+package db.fennec.driver
 
 import com.codahale.metrics.Meter
 import db.fennec.fql.FQuery

@@ -1,4 +1,4 @@
-package db.fennec.timeseries.driver
+package db.fennec.driver
 
 import com.codahale.metrics.Meter
 import com.google.common.collect.HashMultimap
@@ -17,10 +17,10 @@ import db.fennec.kv.KV
 import db.fennec.kv.wiredtiger.WiredTiger
 import db.fennec.kv.wiredtiger.WiredTigerKV
 import db.fennec.proto.*
-import db.fennec.timeseries.driver.FennecDriverCommons.Companion.createBucket
-import db.fennec.timeseries.driver.FennecDriverCommons.Companion.createLabel
-import db.fennec.timeseries.driver.FennecDriverCommons.Companion.createMetaLabel
-import db.fennec.timeseries.driver.FennecDriverCommons.Companion.toByteArray
+import db.fennec.driver.FennecDriverCommons.Companion.createBucket
+import db.fennec.driver.FennecDriverCommons.Companion.createLabel
+import db.fennec.driver.FennecDriverCommons.Companion.createMetaLabel
+import db.fennec.driver.FennecDriverCommons.Companion.toByteArray
 import java.util.*
 
 class FennecRawDriver(
