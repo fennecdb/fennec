@@ -17,6 +17,7 @@ interface FennecDriver : Closeable {
     fun upsert(data: Iterable<FData>, field: String, ns: String)
     fun remove(timerange: LongRange, field: String, ns: String): Long
     fun remove(ns: String)
+    fun gc()
 
     /**
      * Rebalances the buckets for a given field + namespace combination

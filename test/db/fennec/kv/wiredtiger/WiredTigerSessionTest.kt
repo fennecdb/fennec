@@ -51,7 +51,6 @@ class WiredTigerSessionTest {
     }
 
     @Test
-    @Ignore("Problematic")
     fun testList() {
         val session = WiredTiger.createSession(true)
         session.use {

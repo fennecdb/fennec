@@ -6,6 +6,7 @@ import com.google.common.collect.ImmutableList
 import com.google.common.collect.ImmutableMap
 import com.google.common.collect.Multimap
 import com.google.common.flogger.FluentLogger
+import db.fennec.cholla.Cholla
 import db.fennec.core.Metrics
 import db.fennec.core.Metrics.Companion.FDRIVER_INSERT_REQ
 import db.fennec.core.Metrics.Companion.FDRIVER_REMOVE_NS_REQ
@@ -28,10 +29,12 @@ class FennecRawDriver(
         val maxBucketSize: Int = MAX_DEFAULT_BUCKET_SIZE_BYTE,
         val initTimePerBucket: Long = 4000,
         val gatekeeper: Gatekeeper = LocalGatekeeper()
+
 ) : FennecDriver {
 
     private val kv: KV = WiredTigerKV()
     private val maxAvgBucketSize: Int = (maxBucketSize * 0.8).toInt()
+    private val cholla: Cholla = Cholla(kv, gatekeeper)
 
     init {
         if (shouldDirectlyOpen) {
@@ -49,6 +52,10 @@ class FennecRawDriver(
 
     override fun reset() {
         kv.reset()
+    }
+
+    override fun gc() {
+        cholla.run()
     }
 
     override fun metrics(): EnumMap<DriverMetric, Meter> {

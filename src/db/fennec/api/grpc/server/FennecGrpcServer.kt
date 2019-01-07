@@ -4,6 +4,7 @@ import com.google.common.flogger.FluentLogger
 import com.google.common.util.concurrent.MoreExecutors
 import com.google.common.util.concurrent.ThreadFactoryBuilder
 import db.fennec.api.web.FennecRestServer
+import db.fennec.cholla.Cholla
 import db.fennec.core.GlobalConstants
 import db.fennec.core.MaintenanceWorker
 import db.fennec.driver.FennecDriver
