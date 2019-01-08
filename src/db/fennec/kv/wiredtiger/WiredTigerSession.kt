@@ -41,9 +41,17 @@ class WiredTigerSession(shouldOpenSessionDirectly: Boolean = false) : Closeable 
 
     fun closeSession() {
         closeCursor()
-        session?.close("")
-        connection?.close("")
+        closeWithCatch("session") { session?.close("") }
+        closeWithCatch("connection") { connection?.close("") }
         isSessionOpen = false
+    }
+
+    private fun closeWithCatch(desc: String, closeAction: () -> Unit) {
+        try {
+            closeAction.invoke()
+        } catch (e: Exception) {
+            log.atWarning().log("Failure during closing wt $desc")
+        }
     }
 
     override fun close() {

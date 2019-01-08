@@ -40,7 +40,6 @@ class FennecClientTest {
 
     @Test
     @Throws(FennecException::class)
-    @Ignore("Problematic")
     fun testQuery() {
         setup { client ->
             val now = Instant.now().toEpochMilli()
