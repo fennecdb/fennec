@@ -19,3 +19,7 @@ before_install:
   - cd ../
   - sudo mkdir /etc/fennec
   - sudo chown -R "travis" /etc/fennec
+
+script:
+  - ./gradlew assemble
+  - ./gradlew check --info
