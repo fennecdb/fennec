@@ -32,6 +32,10 @@ internal class FennecGrpcClient(val host: String = "localhost", val port: Int = 
                 .collect(Collectors.toList())
     }
 
+    private fun FDataEntryProto.toNonProto(): FData {
+        return FData.fromProto(this.data)
+    }
+
     fun query(query: FQuery): FResult {
         val result = HashMultimap.create<Key, FData>()
         for (selection in query.selections) {
@@ -42,12 +46,14 @@ internal class FennecGrpcClient(val host: String = "localhost", val port: Int = 
                         .setInRangeLow(condition.min())
                         .setInRangeHigh(condition.max())
                         .build())
+                log.atInfo().log("$resp")
                 if (resp != null) {
-//                    resp.status
-                    val fResultProto = resp.result
-
                     for (e: FDataEntryProto in resp.result.dataList) {
-//                        result.putAll(Key(ns, e.field), e.toNonProto())
+                        val colonIndex = e.field.indexOf(':')
+                        if (colonIndex >= 0) {
+                            result.put(Key(field = e.field.substring(0, colonIndex), ns = ns), e.toNonProto())
+
+                        }
                     }
                 }
             }

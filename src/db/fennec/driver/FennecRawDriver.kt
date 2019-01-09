@@ -121,7 +121,8 @@ class FennecRawDriver(
                             x1 = bucket.timestamp
                             x2 = bucket.timestamp + timePerBucket - 1
 
-                            val isIn = x1 <= y1 || x2 <= y2
+                            val isIn = x1 <= y2 && y1 <= x2//x1 <= y1 || x2 <= y2
+                            log.atInfo().log("IsIn:$isIn  -> ${bucket.label} ($y1 - $y2), x1=$x1, x2=$x2")
                             if (isIn) {
                                 toBeLoadedKeys.add(Key(ns = ns, field = bucket.label))
                             }
