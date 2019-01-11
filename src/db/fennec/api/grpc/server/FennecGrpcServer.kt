@@ -9,6 +9,7 @@ import db.fennec.core.GlobalConstants
 import db.fennec.core.MaintenanceWorker
 import db.fennec.driver.FennecDriver
 import db.fennec.driver.FennecRawDriver
+import io.grpc.Server
 import io.grpc.ServerBuilder
 import java.lang.Exception
 import java.util.concurrent.Executors
@@ -24,6 +25,7 @@ class FennecGrpcServer(
     private val driver: FennecDriver = FennecRawDriver(true)
     private val restServer: FennecRestServer
     private val implementation = FennecGrpcServerImpl(driver)
+    private var grpcServer: Server? = null
 
     init {
         restServer = FennecRestServer(driver, restPort)
@@ -35,14 +37,14 @@ class FennecGrpcServer(
         registerShutdownHook()
         MaintenanceWorker(driver)
         try {
-            val server = ServerBuilder
+            grpcServer = ServerBuilder
                     .forPort(grpcPort)
                     .executor(executors)
                     .addService(implementation)
                     .build()
-            server.start()
+            grpcServer?.start()
             log.atInfo().log("> Listening at port '$grpcPort'")
-            server.awaitTermination()
+            grpcServer?.awaitTermination()
         } catch (e: Exception) {
             log.atSevere().withCause(e).log("Fennec encountered a critical error and will shutdown itself immediately...")
         }
@@ -50,6 +52,7 @@ class FennecGrpcServer(
 
     fun stop() {
         implementation.close()
+        grpcServer?.shutdownNow()
     }
 
     private fun registerShutdownHook() {
