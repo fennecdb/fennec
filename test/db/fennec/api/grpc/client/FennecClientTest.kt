@@ -63,7 +63,6 @@ class FennecClientTest {
 
     @Test
     @Throws(FennecException::class)
-    @Ignore("")
     fun testInsert() {
         val field = "a"
         setup { client ->
