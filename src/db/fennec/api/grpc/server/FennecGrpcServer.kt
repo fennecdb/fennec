@@ -53,6 +53,7 @@ class FennecGrpcServer(
     fun stop() {
         implementation.close()
         grpcServer?.shutdownNow()
+        restServer.halt()
     }
 
     private fun registerShutdownHook() {
