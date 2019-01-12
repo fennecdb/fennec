@@ -3,6 +3,7 @@ package db.fennec.error
 enum class Status(private val code: Long, private val descriptor: String) {
     OK(200, "OK"),
     INTERNAL_SERVER_ERROR(500, "Internal Server Error"),
+    BUSY_RESOURCE(501, "Action cannot be performed due to busy session"),
     UNCLASSIFIED(600, "Unclassified error occurred.");
 
     fun getCode(): Long {

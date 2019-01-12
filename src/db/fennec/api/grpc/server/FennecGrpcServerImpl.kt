@@ -4,7 +4,7 @@ import com.google.common.collect.HashMultimap
 import com.google.common.flogger.FluentLogger
 import db.fennec.api.proto.*
 import db.fennec.error.FennecServerException
-import db.fennec.error.FennecExternalExceptionException
+import db.fennec.error.FennecExternalException
 import db.fennec.error.FennecInternalException
 import db.fennec.error.Status
 import db.fennec.fql.*
@@ -23,7 +23,7 @@ open class FennecGrpcServerImpl(val driver: FennecDriver) : FennecServiceGrpc.Fe
             } catch (e: FennecInternalException) {
                 // don't send internal exceptions
                 log.atSevere().withCause(e).log("Fennec service encountered an internal exception")
-            } catch (e: FennecExternalExceptionException) {
+            } catch (e: FennecExternalException) {
                 log.atSevere().withCause(e).log("Fennec service encountered an external exception")
                 onNext(handleFailure.invoke(e))
             } finally {

@@ -2,6 +2,9 @@ package db.fennec.kv.wiredtiger
 
 import com.google.common.flogger.FluentLogger
 import com.wiredtiger.db.WiredTigerException
+import db.fennec.api.grpc.client.error.FennecException
+import db.fennec.error.FennecExternalException
+import db.fennec.error.Status
 import db.fennec.fql.Key
 import db.fennec.kv.KV
 import db.fennec.proto.FNamespacesProto
@@ -133,10 +136,17 @@ class WiredTigerKV(shouldDirectlyOpen: Boolean = false) : KV {
         }
     }
 
+    @Throws(FennecExternalException::class)
     override fun remove(ns: String) {
         acquire {
-            session.deleteTable(ns)
-            unlogNS(ns)
+            try {
+                session.deleteTable(ns)
+                unlogNS(ns)
+            } catch (e: WiredTigerException) {
+                if ("Device or resource busy".equals(e.message)) {
+                    throw FennecExternalException(Status.BUSY_RESOURCE, "Could not delete namespace, resource busy.")
+                }
+            }
         }
     }
 

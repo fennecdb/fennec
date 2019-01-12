@@ -3,14 +3,11 @@ package db.fennec.api.grpc.client;
 import com.google.common.flogger.FluentLogger
 import db.fennec.api.grpc.client.error.FennecException
 import db.fennec.api.grpc.server.FennecGrpcServer
-import db.fennec.cholla.ChollaTest.Companion.TEST_NS
-import db.fennec.driver.FennecRawDriverTest
 import db.fennec.fql.FData
 import db.fennec.fql.FSelection
 import db.fennec.fql.InRange
 import db.fennec.fql.Key
 import org.junit.Assert.*
-import org.junit.Ignore
 import org.junit.Test
 import java.time.Instant
 
@@ -66,30 +63,70 @@ class FennecClientTest {
     fun testInsert() {
         val field = "a"
         setup { client ->
-            var min = dOne.timestamp
-            var max = dOne.timestamp
-            for (d in listOf(dOne, dTwo, dThree, dFour, dFive)) {
-                if (d.timestamp < min) {
-                    min = d.timestamp
-                }
-                if (d.timestamp > max) {
-                    max = d.timestamp
-                }
-            }
-
-            log.atInfo().log("Min:$min, Max:$max")
+            val range = findRange()
             val initialData = listOf(dOne, dTwo, dThree, dFour)
             client.insert(initialData, field, TEST_NS)
             client.insert(listOf(dFive), field, TEST_NS)
 
-            val result = client.query(FSelection(field, TEST_NS, InRange(min, max)).toQuery())
-            log.atInfo().log("Result:$result")
-
-            val data = result.data.get(Key(field, TEST_NS)).toSet()
-            for (d in initialData) {
-                assertTrue("Could not find wanted data $d", data.contains(d))
-            }
+            checkWrittenData(client, field, range, initialData, listOf(dFive))
         }
     }
+
+    @Test
+    @Throws(FennecException::class)
+    fun testUpsert() {
+        val field = "b"
+        setup { client ->
+            val range = findRange()
+            client.upsert(listOf(dOne, dTwo, dThree, dFour), field, TEST_NS)
+            client.upsert(listOf(dFive), field, TEST_NS)
+
+            checkWrittenData(client, field, range, listOf(dOne, dTwo, dThree, dFive), listOf(dFour))
+        }
+    }
+
+    @Test
+    @Throws(FennecException::class)
+    fun testRemoveNamespace() {
+        val field = "c"
+        setup { client ->
+            client.insert(listOf(dOne), field, TEST_NS)
+            client.removeNamespace(TEST_NS)
+
+            checkWrittenData(client, field, LongRange(0, Long.MAX_VALUE), listOf(), listOf())
+        }
+    }
+
+    private fun checkWrittenData(client: FennecClient, field: String, range: LongRange, wanted: List<FData>, notWanted: List<FData>) {
+        val result = client.query(FSelection(field, TEST_NS, InRange(range.first, range.last)).toQuery())
+        log.atInfo().log("Result:$result")
+
+        val data = result.data.get(Key(field, TEST_NS)).toSet()
+        assertEquals("Got more data than wanted", wanted.size, data.size)
+        for (d in wanted) {
+            assertTrue("Could not find wanted data $d", data.contains(d))
+        }
+        for (d in notWanted) {
+            assertTrue("Date $d should not be present", !data.contains(d))
+        }
+    }
+
+    private fun findRange(): LongRange {
+        var min = dOne.timestamp
+        var max = dOne.timestamp
+        for (d in listOf(dOne, dTwo, dThree, dFour, dFive)) {
+            if (d.timestamp < min) {
+                min = d.timestamp
+            }
+            if (d.timestamp > max) {
+                max = d.timestamp
+            }
+        }
+
+        log.atInfo().log("Min:$min, Max:$max")
+        return LongRange(min, max)
+    }
+
+
 
 }

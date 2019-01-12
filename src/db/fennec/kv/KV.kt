@@ -1,5 +1,7 @@
 package db.fennec.kv
 
+import db.fennec.api.grpc.client.error.FennecException
+import db.fennec.error.FennecExternalException
 import db.fennec.fql.Key
 import java.io.Closeable
 
@@ -11,7 +13,7 @@ interface KV : Closeable {
     fun get(key: Key): ByteArray?
     fun getAll(keys: Set<Key>): Map<Key, ByteArray>
     fun remove(vararg keys: Key)
-    fun remove(ns: String)
+    @Throws(FennecExternalException::class) fun remove(ns: String)
     override fun close()
     fun reset()
     fun isOpen(): Boolean

@@ -63,6 +63,11 @@ class WiredTigerSession(shouldOpenSessionDirectly: Boolean = false) : Closeable 
         lastCursor = null
     }
 
+    fun resetSession() {
+        closeSession()
+        openSession()
+    }
+
     // Note: Very expensive call ('wt' only feature (CLI tool))
     fun cliList(): Multimap<String, String> {
         val wasSessionOpen = isSessionOpen
@@ -153,14 +158,17 @@ class WiredTigerSession(shouldOpenSessionDirectly: Boolean = false) : Closeable 
     fun deleteTable(tableName: String): Int {
         checkSession()
         closeCursor()
+        resetSession()
 
         var e: Exception? = null
         try {
             return session!!.drop("table:$tableName", "")
         } catch (wte: WiredTigerException) {
             when {
-                "Device or resource busy".equals(wte.message) ->
+                "Device or resource busy".equals(wte.message) -> {
                     System.err.println("Table '$tableName' could not be deleted. Needs to closeSession all cursors on this table first.")
+                    throw wte
+                }
                 "No such file or directory".equals(wte.message) ->
                     System.err.println("Table '$tableName' could not be deleted, as it does not exist.")
                 else -> {
