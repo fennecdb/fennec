@@ -97,6 +97,19 @@ class FennecClientTest {
         }
     }
 
+    @Test
+    @Throws(FennecException::class)
+    fun testRemove() {
+        val field = "d"
+        setup { client ->
+            val input = listOf(dOne, dTwo, dThree)
+            val range = findRange(input)
+            client.insert(input, field, TEST_NS)
+            client.remove(range.first, range.last, field, TEST_NS)
+            checkWrittenData(client, field, range, listOf(), input)
+        }
+    }
+
     private fun checkWrittenData(client: FennecClient, field: String, range: LongRange, wanted: List<FData>, notWanted: List<FData>) {
         val result = client.query(FSelection(field, TEST_NS, InRange(range.first, range.last)).toQuery())
         log.atInfo().log("Result:$result")
@@ -111,10 +124,10 @@ class FennecClientTest {
         }
     }
 
-    private fun findRange(): LongRange {
+    private fun findRange(of: List<FData> = listOf(dOne, dTwo, dThree, dFour, dFive)): LongRange {
         var min = dOne.timestamp
         var max = dOne.timestamp
-        for (d in listOf(dOne, dTwo, dThree, dFour, dFive)) {
+        for (d in of) {
             if (d.timestamp < min) {
                 min = d.timestamp
             }
