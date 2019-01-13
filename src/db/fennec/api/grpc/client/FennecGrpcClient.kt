@@ -73,8 +73,8 @@ internal class FennecGrpcClient(val host: String = "localhost", val port: Int = 
 
     private fun <T> handle(body: () -> T): T? {
         var numAttempt = 0
+        val maxRetries = 50
         var retry = true
-        var lastMessage = ""
         var result: T? = null
         while (retry) {
             try {
@@ -82,20 +82,13 @@ internal class FennecGrpcClient(val host: String = "localhost", val port: Int = 
                 numAttempt++
                 result = body.invoke()
             } catch (e: StatusRuntimeException) {
-                when (e.status) {
-                    Status.UNAVAILABLE -> {
-                        retry = true
-                        log.atWarning().log("Encountered '${e.message}' will retry (attempt $numAttempt)...")
-                        Uninterruptibles.sleepUninterruptibly(500, TimeUnit.MILLISECONDS)
-                    }
-                    else -> {
-                        log.atWarning().withCause(e).log("Action failed due to $e")
-                        if (e.message != null) {
-                            lastMessage = e.message!!
-                        }
-                        throw FennecException(-1, lastMessage)
-                    }
+
+                if (numAttempt >= maxRetries) {
+                    throw FennecException(-1, e.message)
                 }
+                retry = true
+                log.atWarning().withCause(e).log("Encountered '${e.status}' will retry (attempt $numAttempt)...")
+                Uninterruptibles.sleepUninterruptibly(500, TimeUnit.MILLISECONDS)
             }
         }
         return result
