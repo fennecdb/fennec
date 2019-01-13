@@ -30,7 +30,7 @@ class FennecClientTest {
 
     fun setup(body: (FennecClient) -> Unit) {
         // start server
-        val server = FennecGrpcServer(GRPC_TEST_PORT, REST_TEST_PORT)
+        val server = FennecGrpcServer(GRPC_TEST_PORT, REST_TEST_PORT, false)
         val serverThread = Thread(server, "fennec-client-test")
         try {
             serverThread.start()

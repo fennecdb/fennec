@@ -4,7 +4,6 @@ import com.google.common.flogger.FluentLogger
 import com.google.common.util.concurrent.MoreExecutors
 import com.google.common.util.concurrent.ThreadFactoryBuilder
 import db.fennec.api.web.FennecRestServer
-import db.fennec.cholla.Cholla
 import db.fennec.core.GlobalConstants
 import db.fennec.core.MaintenanceWorker
 import db.fennec.driver.FennecDriver
@@ -16,20 +15,22 @@ import java.util.concurrent.Executors
 
 class FennecGrpcServer(
         val grpcPort: Int = GlobalConstants.DEFAULT_GRPC_PORT,
-        val restPort: Int = GlobalConstants.DEFAULT_REST_PORT) : Runnable {
+        val restPort: Int = GlobalConstants.DEFAULT_REST_PORT, val shouldRunWithRest: Boolean = true) : Runnable {
 
     private val threadFactory = ThreadFactoryBuilder()
             .setNameFormat("fennec-api-worker-%d")
             .build()
     private val executors = MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(100, threadFactory))
     private val driver: FennecDriver = FennecRawDriver(true)
-    private val restServer: FennecRestServer
+    private var restServer: FennecRestServer? = null
     private val implementation = FennecGrpcServerImpl(driver)
     private var grpcServer: Server? = null
 
     init {
-        restServer = FennecRestServer(driver, restPort)
-        restServer.launchAsync()
+        if (shouldRunWithRest) {
+            restServer = FennecRestServer(driver, restPort)
+            restServer?.launchAsync()
+        }
     }
 
     override fun run() {
@@ -53,7 +54,7 @@ class FennecGrpcServer(
     fun stop() {
         implementation.close()
         grpcServer?.shutdownNow()
-        restServer.halt()
+        restServer?.halt()
     }
 
     private fun registerShutdownHook() {
