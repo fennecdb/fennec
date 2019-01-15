@@ -3,6 +3,7 @@ package db.fennec.api.grpc.client;
 import com.google.common.flogger.FluentLogger;
 import com.google.common.util.concurrent.RateLimiter;
 import db.fennec.api.grpc.client.error.FennecException;
+import db.fennec.common.LogDefinition;
 import db.fennec.fql.FData;
 import db.fennec.fql.FQuery;
 import db.fennec.fql.FResult;
@@ -10,10 +11,11 @@ import db.fennec.fql.FResult;
 import java.io.Closeable;
 import java.io.IOException;
 import java.util.function.Supplier;
+import java.util.logging.Level;
 
 public class FennecClient implements Closeable {
 
-    private static final FluentLogger log = FluentLogger.forEnclosingClass();
+    private static final FluentLogger log = LogDefinition.Companion.jConfig(FluentLogger.forEnclosingClass());
 
     private String host;
     private int port;
@@ -24,9 +26,13 @@ public class FennecClient implements Closeable {
     }
 
     public FennecClient(String host, int port, boolean connectDirectly) throws FennecException {
+        this(host, port, connectDirectly, Level.WARNING);
+    }
+
+    public FennecClient(String host, int port, boolean connectDirectly, Level level) throws FennecException {
         this.host = host;
         this.port = port;
-        this.client = new FennecGrpcClient(host, port);
+        this.client = new FennecGrpcClient(host, port, level);
         if (connectDirectly) {
             connect();
         }

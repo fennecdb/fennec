@@ -9,6 +9,7 @@ import db.fennec.gatekeeper.LocalGatekeeper
 import db.fennec.kv.KV
 import db.fennec.proto.FMetaLabelProto
 import db.fennec.proto.FMetaProto
+import db.fennec.common.LogDefinition.Companion.config
 
 class Cholla(val kv: KV, val gatekeeper: Gatekeeper = LocalGatekeeper()) : Runnable {
 
@@ -81,7 +82,7 @@ class Cholla(val kv: KV, val gatekeeper: Gatekeeper = LocalGatekeeper()) : Runna
     }
 
     companion object {
-        @JvmStatic private val log = FluentLogger.forEnclosingClass()
+        @JvmStatic private val log = FluentLogger.forEnclosingClass().config()
 
         private val RATE_LIMITER = RateLimiter.create(1.0 / 60 * 3)
     }

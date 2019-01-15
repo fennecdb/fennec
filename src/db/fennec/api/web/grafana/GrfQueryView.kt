@@ -4,6 +4,7 @@ import com.google.common.flogger.FluentLogger
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.JsonPrimitive
+import db.fennec.common.LogDefinition.Companion.config
 import db.fennec.api.web.FennecRestServer.Companion.respondJson
 import db.fennec.api.web.View
 import db.fennec.api.web.grafana.requests.GrfQueryRequest
@@ -80,6 +81,6 @@ class GrfQueryView(val driver: FennecDriver) : View {
     }
 
     companion object {
-        @JvmStatic private val log = FluentLogger.forEnclosingClass()
+        @JvmStatic private val log = FluentLogger.forEnclosingClass().config()
     }
 }

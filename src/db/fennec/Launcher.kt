@@ -1,9 +1,7 @@
 package db.fennec
 
-import com.google.common.flogger.FluentLogger
-import com.google.common.flogger.LoggerConfig
-import db.fennec.Launcher.Companion.logger
 import db.fennec.api.grpc.server.FennecGrpcServer
+import db.fennec.common.LogDefinition
 import db.fennec.core.ArgumentParser
 import db.fennec.core.GlobalConstants
 import org.apache.commons.cli.CommandLine
@@ -21,13 +19,12 @@ class Launcher(args: Array<String>) : Runnable {
     }
 
     companion object {
-        @JvmStatic val logger = FluentLogger.forEnclosingClass()
         @JvmStatic val VERSION = "v0.1"
     }
 }
 
 fun main(args: Array<String>) {
-    LoggerConfig.of(logger).level = Level.INFO
+    LogDefinition.BASE_LOG_LEVEL = Level.WARNING
 
     FennecGrpcServer(GlobalConstants.DEFAULT_GRPC_PORT, GlobalConstants.DEFAULT_REST_PORT).run()
 }

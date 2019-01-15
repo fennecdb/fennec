@@ -8,6 +8,7 @@ import db.fennec.core.GlobalConstants
 import db.fennec.core.MaintenanceWorker
 import db.fennec.driver.FennecDriver
 import db.fennec.driver.FennecRawDriver
+import db.fennec.common.LogDefinition.Companion.config
 import io.grpc.Server
 import io.grpc.ServerBuilder
 import java.lang.Exception
@@ -68,11 +69,11 @@ class FennecGrpcServer(
     }
 
     companion object {
-        @JvmStatic private val log = FluentLogger.forEnclosingClass()
+        @JvmStatic private val log = FluentLogger.forEnclosingClass().config()
     }
 
 }
 
 fun main(args: Array<String>) {
-    FennecGrpcServer(GlobalConstants.DEFAULT_GRPC_PORT, 5000).run()
+    FennecGrpcServer(GlobalConstants.DEFAULT_GRPC_PORT, GlobalConstants.DEFAULT_REST_PORT).run()
 }

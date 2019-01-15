@@ -4,12 +4,11 @@ import com.google.common.flogger.FluentLogger
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import com.google.gson.annotations.SerializedName
+import db.fennec.common.LogDefinition.Companion.config
 import db.fennec.api.web.grafana.requests.GrfQueryRequest.Companion.toTimestamp
 import java.io.InvalidObjectException
 import java.text.SimpleDateFormat
-import java.time.ZoneId
 import java.util.*
-
 
 data class GrfQueryRequest(
         val timezone: String,
@@ -25,7 +24,7 @@ data class GrfQueryRequest(
 ) {
     companion object {
         @JvmStatic
-        private val log = FluentLogger.forEnclosingClass()
+        private val log = FluentLogger.forEnclosingClass().config()
 
         @Throws(InvalidObjectException::class)
         fun parse(json: String): GrfQueryRequest {

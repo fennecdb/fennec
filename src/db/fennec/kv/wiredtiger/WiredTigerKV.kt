@@ -2,7 +2,7 @@ package db.fennec.kv.wiredtiger
 
 import com.google.common.flogger.FluentLogger
 import com.wiredtiger.db.WiredTigerException
-import db.fennec.api.grpc.client.error.FennecException
+import db.fennec.common.LogDefinition.Companion.config
 import db.fennec.error.FennecExternalException
 import db.fennec.error.Status
 import db.fennec.fql.Key
@@ -178,7 +178,7 @@ class WiredTigerKV(shouldDirectlyOpen: Boolean = false) : KV {
     }
 
     companion object {
-        @JvmStatic private val log = FluentLogger.forEnclosingClass()
+        @JvmStatic private val log = FluentLogger.forEnclosingClass().config()
 
         private val META_TABLE = "Fennec"
         private val META_NS_KEY = "namespaces"

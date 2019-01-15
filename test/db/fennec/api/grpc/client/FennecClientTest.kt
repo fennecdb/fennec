@@ -3,13 +3,16 @@ package db.fennec.api.grpc.client;
 import com.google.common.flogger.FluentLogger
 import db.fennec.api.grpc.client.error.FennecException
 import db.fennec.api.grpc.server.FennecGrpcServer
+import db.fennec.common.LogDefinition
 import db.fennec.fql.FData
 import db.fennec.fql.FSelection
 import db.fennec.fql.InRange
 import db.fennec.fql.Key
 import org.junit.Assert.*
+import org.junit.Before
 import org.junit.Test
 import java.time.Instant
+import java.util.logging.Level
 
 class FennecClientTest {
 
@@ -26,6 +29,11 @@ class FennecClientTest {
         private val dThree = FData(3.0, 1544912251000)
         private val dFour = FData(4.0, 1544912246030)
         private val dFive = FData(5.0, 1544912246030)
+    }
+
+    @Before
+    fun before() {
+        LogDefinition.BASE_LOG_LEVEL = Level.INFO
     }
 
     fun setup(body: (FennecClient) -> Unit) {

@@ -1,6 +1,7 @@
 package db.fennec.api.web
 
 import com.google.common.flogger.FluentLogger
+import db.fennec.common.LogDefinition.Companion.config
 import db.fennec.api.web.grafana.*
 import db.fennec.api.web.rest.DashboardView
 import db.fennec.api.web.rest.RootView
@@ -95,7 +96,7 @@ class FennecRestServer(val driver: FennecDriver, val restPort: Int = GlobalConst
 
 
     companion object {
-        val log = FluentLogger.forEnclosingClass()
+        private val log = FluentLogger.forEnclosingClass().config()
 
         fun respondJson(routingContext: RoutingContext, json: String) {
             routingContext.response()

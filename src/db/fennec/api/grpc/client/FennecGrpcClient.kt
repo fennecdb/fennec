@@ -13,15 +13,20 @@ import db.fennec.fql.FResult
 import db.fennec.fql.Key
 import io.grpc.ManagedChannel
 import io.grpc.ManagedChannelBuilder
-import io.grpc.Status
 import io.grpc.StatusRuntimeException
 import java.util.concurrent.TimeUnit
 import java.util.stream.Collectors
+import db.fennec.common.LogDefinition.Companion.config
+import java.util.logging.Level
 
-internal class FennecGrpcClient(val host: String = "localhost", val port: Int = 64733) {
+internal class FennecGrpcClient(val host: String = "localhost", val port: Int = 64733, val level: Level = Level.WARNING) {
 
     private var channel: ManagedChannel? = null
     private var stub: FennecServiceGrpc.FennecServiceBlockingStub? = null
+
+    init {
+        log.config(level)
+    }
 
     fun connect() {
         channel = ManagedChannelBuilder.forAddress(host, port)
@@ -145,7 +150,7 @@ internal class FennecGrpcClient(val host: String = "localhost", val port: Int = 
     }
 
     companion object {
-        @JvmStatic private val log = FluentLogger.forEnclosingClass()
+        @JvmStatic private val log = FluentLogger.forEnclosingClass().config()
 
         private val DEADLINE_SEC: Long = 15
     }

@@ -2,6 +2,7 @@ package db.fennec.api.grpc.server
 
 import com.google.common.collect.HashMultimap
 import com.google.common.flogger.FluentLogger
+import db.fennec.common.LogDefinition.Companion.config
 import db.fennec.api.proto.*
 import db.fennec.error.FennecServerException
 import db.fennec.error.FennecExternalException
@@ -116,7 +117,7 @@ open class FennecGrpcServerImpl(val driver: FennecDriver) : FennecServiceGrpc.Fe
     }
 
     companion object {
-        @JvmStatic private val log = FluentLogger.forEnclosingClass()
+        @JvmStatic private val log = FluentLogger.forEnclosingClass().config()
 
         private val OK = FStatus.newBuilder()
                 .setMessage(Status.OK.getDescriptor())

@@ -3,6 +3,7 @@ package db.fennec.core
 import com.google.common.flogger.FluentLogger
 import db.fennec.core.Metrics.Companion.MAINT_WORKER_IT
 import db.fennec.driver.FennecDriver
+import db.fennec.common.LogDefinition.Companion.config
 import java.util.Timer
 import java.util.TimerTask
 
@@ -34,7 +35,7 @@ class MaintenanceWorker(val driver: FennecDriver) {
     }
 
     companion object {
-        @JvmStatic private val log = FluentLogger.forEnclosingClass()
+        @JvmStatic private val log = FluentLogger.forEnclosingClass().config()
         @JvmStatic val MAINTENANCE_DELAY: Long = 1000L * 60 * 5
     }
 }

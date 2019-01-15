@@ -8,16 +8,12 @@ import com.wiredtiger.db.WiredTigerException
 import com.wiredtiger.db.Session
 import com.wiredtiger.db.Cursor
 import com.wiredtiger.db.wiredtiger
+import db.fennec.common.LogDefinition.Companion.config
 import db.fennec.kv.wiredtiger.WiredTigerConstants.Companion.DB_DIR
-//import org.apache.commons.io.IOUtils
 import java.io.Closeable
-import java.util.concurrent.Semaphore
 import java.util.concurrent.TimeUnit
 import java.io.InputStreamReader
-import com.google.common.io.CharStreams
 import java.io.BufferedReader
-import java.util.*
-
 
 class WiredTigerSession(shouldOpenSessionDirectly: Boolean = false) : Closeable {
 
@@ -184,7 +180,7 @@ class WiredTigerSession(shouldOpenSessionDirectly: Boolean = false) : Closeable 
     }
 
     companion object {
-        private val log = FluentLogger.forEnclosingClass()
+        private val log = FluentLogger.forEnclosingClass().config()
 
         init {
             WiredTiger.loadLibrary()
