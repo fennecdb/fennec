@@ -18,8 +18,8 @@ class GrfQueryRequestTest {
         val targetAsComponents = queryRequest.targets[0].targetAsComponents()!!
         assertEquals("Incorrect target components",
                 GrafanaTargetComponents("test", "x", "m5", "qwrrqeereee"), targetAsComponents)
-        assertEquals("From timestamp incorrect", 1545881680487L, queryRequest.range.fromAsTimestamp())
-        assertEquals("To timestamp incorrect", 1545903280487L, queryRequest.range.toAsTimestamp())
+        assertEquals("From timestamp incorrect", 1545885280487, queryRequest.range.fromAsTimestamp())
+        assertEquals("To timestamp incorrect", 1545906880487, queryRequest.range.toAsTimestamp())
     }
 
     companion object {
