@@ -1,5 +1,6 @@
 package db.fennec.api.web.grafana.requests
 
+import com.google.common.base.Strings
 import com.google.common.flogger.FluentLogger
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
@@ -9,6 +10,10 @@ import db.fennec.api.web.grafana.requests.GrfQueryRequest.Companion.toTimestamp
 import java.io.InvalidObjectException
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.Calendar
+import java.util.TimeZone
+
+
 
 data class GrfQueryRequest(
         val timezone: String,
@@ -26,6 +31,9 @@ data class GrfQueryRequest(
         @JvmStatic
         private val log = FluentLogger.forEnclosingClass().config()
 
+        private val TIME_ZONE = TimeZone.getTimeZone("UTC")
+        private val CALENDAR = Calendar.getInstance(TIME_ZONE)
+
         @Throws(InvalidObjectException::class)
         fun parse(json: String): GrfQueryRequest {
             try {
@@ -42,8 +50,10 @@ data class GrfQueryRequest(
                 return 0
             }
             val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-            parser.calendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Luxembourg"))
-            return parser.parse(dateString).time
+            parser.calendar = CALENDAR
+            val timestamp = parser.parse(dateString).time
+            println("from $dateString to $timestamp")
+            return timestamp
         }
     }
 }
@@ -68,14 +78,14 @@ data class GrafanaRawRange(
 )
 
 data class GrafanaTarget(
-        val target: String,
+        val target: String?,
         val refId: String,
         val type: String
 ) {
 
     fun targetAsComponents(): GrafanaTargetComponents? {
-        if (target.isNotBlank()) {
-            val split = target.split(":")
+        if (!Strings.isNullOrEmpty(target)) {
+            val split = target!!.split(":")
             if (split.size >= 5) {
                 return GrafanaTargetComponents(split[1], split[2], split[3], split[4])
             }
