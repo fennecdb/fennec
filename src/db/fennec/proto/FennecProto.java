@@ -35,10 +35,10 @@ public final class FennecProto {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_db_fennec_proto_FDataProto_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_db_fennec_proto_FMetaProto_descriptor;
+    internal_static_db_fennec_proto_FMetaOldProto_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_db_fennec_proto_FMetaProto_fieldAccessorTable;
+      internal_static_db_fennec_proto_FMetaOldProto_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
     internal_static_db_fennec_proto_FMetaLabelProto_descriptor;
   static final 
@@ -49,6 +49,11 @@ public final class FennecProto {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_db_fennec_proto_FNamespacesProto_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_db_fennec_proto_FMetaProto_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_db_fennec_proto_FMetaProto_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -65,12 +70,14 @@ public final class FennecProto {
       "DataProto\"^\n\017FDataEntryProto\022\r\n\005field\030\001 " +
       "\001(\t\022\021\n\tnamespace\030\002 \001(\t\022)\n\004data\030\003 \001(\0132\033.d" +
       "b.fennec.proto.FDataProto\".\n\nFDataProto\022" +
-      "\r\n\005value\030\001 \001(\001\022\021\n\ttimestamp\030\002 \001(\003\"[\n\nFMe" +
-      "taProto\0224\n\nused_label\030\001 \003(\0132 .db.fennec." +
-      "proto.FMetaLabelProto\022\027\n\017time_per_bucket" +
-      "\030\002 \001(\003\"3\n\017FMetaLabelProto\022\r\n\005label\030\001 \001(\t" +
-      "\022\021\n\ttimestamp\030\002 \001(\003\"\036\n\020FNamespacesProto\022" +
-      "\n\n\002ns\030\001 \003(\tB\017B\013FennecProtoP\001b\006proto3"
+      "\r\n\005value\030\001 \001(\001\022\021\n\ttimestamp\030\002 \001(\003\"^\n\rFMe" +
+      "taOldProto\0224\n\nused_label\030\001 \003(\0132 .db.fenn" +
+      "ec.proto.FMetaLabelProto\022\027\n\017time_per_buc" +
+      "ket\030\002 \001(\003\"3\n\017FMetaLabelProto\022\r\n\005label\030\001 " +
+      "\001(\t\022\021\n\ttimestamp\030\002 \001(\003\"\036\n\020FNamespacesPro" +
+      "to\022\n\n\002ns\030\001 \003(\t\"O\n\nFMetaProto\022\031\n\021used_lab" +
+      "el_suffix\030\001 \003(\003\022\r\n\005field\030\002 \001(\t\022\027\n\017time_p" +
+      "er_bucket\030\003 \001(\003B\017B\013FennecProtoP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -108,11 +115,11 @@ public final class FennecProto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_db_fennec_proto_FDataProto_descriptor,
         new java.lang.String[] { "Value", "Timestamp", });
-    internal_static_db_fennec_proto_FMetaProto_descriptor =
+    internal_static_db_fennec_proto_FMetaOldProto_descriptor =
       getDescriptor().getMessageTypes().get(4);
-    internal_static_db_fennec_proto_FMetaProto_fieldAccessorTable = new
+    internal_static_db_fennec_proto_FMetaOldProto_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_db_fennec_proto_FMetaProto_descriptor,
+        internal_static_db_fennec_proto_FMetaOldProto_descriptor,
         new java.lang.String[] { "UsedLabel", "TimePerBucket", });
     internal_static_db_fennec_proto_FMetaLabelProto_descriptor =
       getDescriptor().getMessageTypes().get(5);
@@ -126,6 +133,12 @@ public final class FennecProto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_db_fennec_proto_FNamespacesProto_descriptor,
         new java.lang.String[] { "Ns", });
+    internal_static_db_fennec_proto_FMetaProto_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_db_fennec_proto_FMetaProto_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_db_fennec_proto_FMetaProto_descriptor,
+        new java.lang.String[] { "UsedLabelSuffix", "Field", "TimePerBucket", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

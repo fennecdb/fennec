@@ -2,7 +2,6 @@ package db.fennec.cholla
 
 import com.google.common.flogger.FluentLogger
 import db.fennec.driver.FennecRawDriver
-import db.fennec.driver.FennecRawDriverTest
 import db.fennec.fql.FData
 import db.fennec.fql.Key
 import db.fennec.kv.wiredtiger.WiredTigerKV
@@ -36,9 +35,9 @@ class ChollaTest {
             val status = cholla.runWithStatus(nsWhitelist = setOf(TEST_NS))
             log.atInfo().log("Status:$status")
 
-            val wantedRemovedKey = Key(field = field, ns =  TEST_NS)
+            val wantedRemovedKey = Key(field = "$field:1544912244000", ns =  TEST_NS)
             assertTrue("Key $wantedRemovedKey was not removed", status.removed.contains(wantedRemovedKey))
-            val wantedKeptKey = Key(field = fineField, ns = TEST_NS)
+            val wantedKeptKey = Key(field = "$fineField:1544912246000", ns = TEST_NS)
             assertTrue("Key $wantedKeptKey was kept", !status.removed.contains(wantedKeptKey))
         }
     }

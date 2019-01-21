@@ -152,6 +152,6 @@ internal class FennecGrpcClient(val host: String = "localhost", val port: Int = 
     companion object {
         @JvmStatic private val log = FluentLogger.forEnclosingClass().config()
 
-        private val DEADLINE_SEC: Long = 15
+        private val DEADLINE_SEC: Long = 150
     }
 }

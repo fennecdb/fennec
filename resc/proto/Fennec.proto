@@ -23,7 +23,7 @@ message FDataProto {
     int64 timestamp = 2;
 }
 
-message FMetaProto {
+message FMetaOldProto {
     repeated FMetaLabelProto used_label = 1;
     int64 time_per_bucket = 2;
 }
@@ -35,4 +35,10 @@ message FMetaLabelProto {
 
 message FNamespacesProto {
     repeated string ns = 1;
+}
+
+message FMetaProto {
+    repeated int64 used_label_suffix = 1;
+    string field = 2;
+    int64 time_per_bucket = 3;
 }

@@ -1,6 +1,7 @@
 package db.fennec.driver
 
 import com.codahale.metrics.Meter
+import com.codahale.metrics.Timer
 import com.google.common.collect.HashMultimap
 import com.google.common.collect.ImmutableList
 import com.google.common.collect.ImmutableMap
@@ -10,6 +11,8 @@ import db.fennec.common.LogDefinition.Companion.config
 import db.fennec.cholla.Cholla
 import db.fennec.core.Metrics
 import db.fennec.core.Metrics.Companion.FDRIVER_INSERT_REQ
+import db.fennec.core.Metrics.Companion.FDRIVER_INSERT_TIME
+import db.fennec.core.Metrics.Companion.FDRIVER_QUERY_TIME
 import db.fennec.core.Metrics.Companion.FDRIVER_REMOVE_NS_REQ
 import db.fennec.core.Metrics.Companion.FDRIVER_UPSERT_REQ
 import db.fennec.fql.*
@@ -59,7 +62,7 @@ class FennecRawDriver(
         cholla.run()
     }
 
-    override fun metrics(): EnumMap<DriverMetric, Meter> {
+    override fun meters(): EnumMap<DriverMetric, Meter> {
         val result = EnumMap<DriverMetric, Meter>(DriverMetric::class.java)
         result[DriverMetric.QUERY_REQ] = Metrics.FDRIVER_QUERY_REQ
         result[DriverMetric.INSERT_REQ] = Metrics.FDRIVER_INSERT_REQ
@@ -69,9 +72,21 @@ class FennecRawDriver(
         return result
     }
 
+    override fun timers(): EnumMap<DriverMetric, Timer> {
+        val result = EnumMap<DriverMetric, Timer>(DriverMetric::class.java)
+        result[DriverMetric.INSERT_TIME] = Metrics.FDRIVER_INSERT_TIME
+        result[DriverMetric.QUERY_TIME] = Metrics.FDRIVER_QUERY_TIME
+        return result
+    }
+
     override fun query(query: FQuery): FResult {
         Metrics.FDRIVER_QUERY_REQ.mark()
-        return query(query, false) { key, data -> }
+        val context: Timer.Context? = FDRIVER_QUERY_TIME.time()
+        try {
+            return query(query, false) { key, data -> }
+        } finally {
+            context?.stop()
+        }
     }
 
     override fun remove(timerange: LongRange, field: String, ns: String): Long {
@@ -103,31 +118,34 @@ class FennecRawDriver(
         for (selection in query.selections) {
             with (selection) {
                 gatekeeper.acquire(field, ns) {
+                    println("field$field")
                     // eval query
                     val metaLabel = createMetaLabel(field)
                     val bytes = kv.get(Key(ns = ns, field = metaLabel))
                     val meta = FMetaProto.parseFrom(bytes)
+
                     val timePerBucket = meta.timePerBucket
                     if (timePerBucket > 0) {
                         val y1 = condition.min()
                         val y2 = condition.max()
 
-                        val list = meta.usedLabelList
+                        val list = meta.usedLabelSuffixList
                         val toBeLoadedKeys = HashSet<Key>()
 
                         // map
                         var x1: Long
                         var x2: Long
-                        for (bucket in list) {
-                            x1 = bucket.timestamp
-                            x2 = bucket.timestamp + timePerBucket - 1
+                        for (suffix in list) {
+                            x1 = suffix
+                            x2 = suffix + timePerBucket - 1
 
                             val isIn = x1 <= y2 && y1 <= x2//x1 <= y1 || x2 <= y2
-                            log.atInfo().log("IsIn:$isIn  -> ${bucket.label} ($y1 - $y2), x1=$x1, x2=$x2")
+                            println("IsIn:$isIn  -> ($y1 - $y2), x1=$x1, x2=$x2")
                             if (isIn) {
-                                toBeLoadedKeys.add(Key(ns = ns, field = bucket.label))
+                                toBeLoadedKeys.add(Key(ns = ns, field = "${meta.field}:$suffix"))
                             }
                         }
+                        println("toBeLoaded:$toBeLoadedKeys")
                         // reduce
                         for (key in toBeLoadedKeys) {
                             val entries = FDataBucketProto.parseFrom(kv.get(key))
@@ -159,14 +177,13 @@ class FennecRawDriver(
             if (metaBytes != null) {
                 val kvMeta = FMetaProto.parseFrom(metaBytes)
 
-                println("kvMeta:${kvMeta.usedLabelList}")
                 var numBuckets: Long = 0
                 var totalSize: Long = 0
                 var maxSize = 0
                 var minSize = 0
                 val data: Multimap<Key, ByteArray> = HashMultimap.create()
-                for (meta in kvMeta.usedLabelList) {
-                    val key = Key(ns = ns, field = meta.label)
+                for (suffix in kvMeta.usedLabelSuffixList) {
+                    val key = Key(ns = ns, field = "${kvMeta.field}:${suffix}")
                     val bytes = kv.get(key)
                     if (bytes != null && bytes.isNotEmpty()) {
                         totalSize += bytes.size
@@ -194,7 +211,7 @@ class FennecRawDriver(
                     kv.remove(*data.keySet().toTypedArray())
                     // clear meta
                     timePerBucket = kvMeta.timePerBucket * 2
-                    kv.put(metaKey, kvMeta.toBuilder().clearUsedLabel().build().toByteArray())
+                    kv.put(metaKey, kvMeta.toBuilder().clearUsedLabelSuffix().build().toByteArray())
 
                     // insert new data
                     for (e in data.entries()) {
@@ -230,7 +247,9 @@ class FennecRawDriver(
 
     override fun insert(data: Iterable<FData>, field: String, ns: String) {
         FDRIVER_INSERT_REQ.mark()
-        write(data, false, field, ns)
+        FDRIVER_INSERT_TIME.time {
+            write(data, false, field, ns)
+        }
     }
 
     override fun upsert(data: Iterable<FData>, field: String, ns: String) {
@@ -269,14 +288,15 @@ class FennecRawDriver(
             // store
             kv.putAll(toBeStored)
             // update meta
-            updateMeta(toBeStored, preResult.label2FieldMapping, preResult.label2TimestampMapping, field, ns, usedTimePerBucket)
+            updateMeta(toBeStored, preResult.label2FieldMapping, preResult.label2TimestampMapping, ns, usedTimePerBucket)
         }
     }
 
     private fun updateMeta(toBeStored: Map<Key, ByteArray>, label2FieldMapping: Map<String, String>,
-                           label2TimestampMapping: Map<String, Long>, field: String, ns: String, timePerBucket: Long) {
+                           label2TimestampMapping: Map<String, Long>, ns: String, timePerBucket: Long) {
         if (toBeStored.isNotEmpty()) {
             val entry = toBeStored.entries.iterator().next()
+
             val field = label2FieldMapping[entry.key.field]!!
             val metaLabel = createMetaLabel(field)
             val metaKey = Key(ns = ns, field = metaLabel)
@@ -284,34 +304,30 @@ class FennecRawDriver(
             val data = FMetaProto.newBuilder()
             val kvMetaData = kv.get(metaKey)
 
-            val seen = HashSet<String>()
+            val seen = HashSet<Long>()
             for (e in toBeStored.entries) {
                 with (e.key.field) {
-                    if (!seen.contains(this)) {
-                        seen.add(this)
-                        data.addUsedLabel(createFMetaLabel(this, label2TimestampMapping[this]!!))
+                    val suffix = label2TimestampMapping[this]!!
+                    // remove
+                    if (!seen.contains(suffix)) {
+                        seen.add(suffix)
+                        data.addUsedLabelSuffix(suffix)
                     }
                 }
             }
             if (kvMetaData != null) {
                 val kvMeta = FMetaProto.parseFrom(kvMetaData)
-                for (kvMLabel in kvMeta.usedLabelList) {
-                    if (!seen.contains(kvMLabel.label)) {
-                        seen.add(kvMLabel.label)
-                        data.addUsedLabel(kvMLabel)
+                for (suffix in kvMeta.usedLabelSuffixList) {
+                    if (!seen.contains(suffix)) {
+                        seen.add(suffix)
+                        data.addUsedLabelSuffix(suffix)
                     }
                 }
             }
+            data.field = field
             data.timePerBucket = timePerBucket
             kv.put(metaKey, data.build().toByteArray())
         }
-    }
-
-    private fun createFMetaLabel(label: String, timestamp: Long): FMetaLabelProto {
-        return FMetaLabelProto.newBuilder()
-                .setLabel(label)
-                .setTimestamp(timestamp)
-                .build()
     }
 
     private fun merge(preResult: PreResult, shouldOverwrite: Boolean, ns: String): Map<Key, ByteArray> {

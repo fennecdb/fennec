@@ -26,5 +26,12 @@ class Launcher(args: Array<String>) : Runnable {
 fun main(args: Array<String>) {
     LogDefinition.BASE_LOG_LEVEL = Level.WARNING
 
-    FennecGrpcServer(GlobalConstants.DEFAULT_GRPC_PORT, GlobalConstants.DEFAULT_REST_PORT).run()
+    var grpcPort = GlobalConstants.DEFAULT_GRPC_PORT
+    var restPort = GlobalConstants.DEFAULT_REST_PORT
+    if (args.isNotEmpty() && args[0] == "local") {
+        grpcPort = GlobalConstants.DEV_GRPC_PORT
+        restPort = GlobalConstants.DEV_REST_PORT
+    }
+
+    FennecGrpcServer(grpcPort, restPort).run()
 }

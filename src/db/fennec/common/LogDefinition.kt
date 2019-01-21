@@ -7,7 +7,7 @@ import java.util.logging.Level
 class LogDefinition {
 
     companion object {
-        var BASE_LOG_LEVEL = Level.INFO
+        var BASE_LOG_LEVEL = Level.WARNING
 
         fun FluentLogger?.config(level: Level = BASE_LOG_LEVEL): FluentLogger {
             LoggerConfig.of(this!!).level = level

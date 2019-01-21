@@ -8,6 +8,7 @@ import com.google.common.cache.CacheLoader
 import java.util.concurrent.TimeUnit
 import com.google.common.cache.CacheBuilder
 import com.google.common.cache.LoadingCache
+import com.google.common.collect.ImmutableSet
 import db.fennec.api.web.FennecRestServer.Companion.respondJson
 import java.lang.Exception
 

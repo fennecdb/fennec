@@ -1,5 +1,6 @@
 package db.fennec.driver
 
+import com.codahale.metrics.Timer
 import com.google.common.collect.HashMultimap
 import com.google.common.collect.ImmutableSet
 import com.google.common.collect.Multimap
@@ -7,12 +8,12 @@ import com.google.common.flogger.FluentLogger
 import db.fennec.fql.*
 import db.fennec.kv.KV
 import db.fennec.kv.wiredtiger.WiredTigerKV
-import db.fennec.proto.FDataBucketProto
-import db.fennec.proto.FMetaLabelProto
-import db.fennec.proto.FMetaProto
+import db.fennec.metrics.Snap
+import db.fennec.proto.*
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Test
+import java.util.concurrent.TimeUnit
 
 class FennecRawDriverTest {
 
@@ -32,6 +33,33 @@ class FennecRawDriverTest {
             driver.remove(TEST_NS)
         }
     }
+
+    @Test
+    fun testMetaParsing() {
+        WiredTigerKV(true).use { kv ->
+            val builder = FMetaProto.newBuilder()
+            with (builder) {
+                for (i in 0..500_000) {
+                    addUsedLabelSuffix(1234567890L + i )
+                }
+                field = "test"
+                timePerBucket = 4000
+            }
+            val bytes = builder.build().toByteString()
+
+            log.atInfo().log("Parsing...")
+            val timer = Timer()
+            for (i in 0..500) {
+                timer.time {
+                    FMetaProto.parseFrom(bytes)
+                }
+            }
+            val snap = Snap(timer.snapshot, TimeUnit.MILLISECONDS)
+            log.atInfo().log("Timing:$snap")
+            assertTrue("Meta deserialization not fast enough", snap.mean() < 15)
+        }
+    }
+
     @Test
     fun testSmallQuery() {
         FennecRawDriver(true).use { driver ->
@@ -121,8 +149,7 @@ class FennecRawDriverTest {
         WiredTigerKV(true).use { kv ->
             checkEntries(kv, keyOne, 2, dOne, dFive)
             checkEntries(kv, keyTwo, 2, dTwo, dThree)
-            checkMeta(kv, metaKey,
-                    metaLabel(keyOne.field, 1544912244000), metaLabel(keyTwo.field, 1544912248000))
+            checkMeta(kv, metaKey, 1544912244000, 1544912248000)
         }
     }
 
@@ -137,8 +164,7 @@ class FennecRawDriverTest {
         WiredTigerKV(true).use { kv ->
             checkEntries(kv, keyOne, 2, dOne, dFour)
             checkEntries(kv, keyTwo, 2, dTwo, dThree)
-            checkMeta(kv, metaKey,
-                    metaLabel(keyOne.field, 1544912244000), metaLabel(keyTwo.field, 1544912248000))
+            checkMeta(kv, metaKey,1544912244000, 1544912248000)
         }
     }
 
@@ -160,19 +186,12 @@ class FennecRawDriverTest {
         return data
     }
 
-    private fun metaLabel(label: String, timestamp: Long): FMetaLabelProto {
-        return FMetaLabelProto.newBuilder()
-                .setLabel(label)
-                .setTimestamp(timestamp)
-                .build()
-    }
-
-    private fun checkMeta(kv: KV, metaKey: Key, vararg wanted: FMetaLabelProto) {
+    private fun checkMeta(kv: KV, metaKey: Key, vararg wanted: Long) {
         log.atInfo().log("meta:$metaKey")
         val meta = FMetaProto.parseFrom(kv.get(metaKey))
         log.atInfo().log("meta:$meta")
 
-        val isMeta = meta.usedLabelList.toSet()
+        val isMeta = meta.usedLabelSuffixList.toSet()
         for (w in wanted) {
             assertTrue("Meta $isMeta does not contain $w", isMeta.contains(w))
         }

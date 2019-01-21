@@ -1,11 +1,12 @@
 package db.fennec.driver
 
 import com.codahale.metrics.Meter
+import com.codahale.metrics.Timer
 import db.fennec.fql.FQuery
 import db.fennec.fql.FData
 import db.fennec.fql.FResult
 import java.io.Closeable
-import java.util.*
+import java.util.EnumMap
 
 interface FennecDriver : Closeable {
 
@@ -39,6 +40,6 @@ interface FennecDriver : Closeable {
      */
     fun listNS(): Iterable<String>
 
-    fun metrics(): EnumMap<DriverMetric, Meter>
-
+    fun meters(): EnumMap<DriverMetric, Meter>
+    fun timers(): EnumMap<DriverMetric, Timer>
 }

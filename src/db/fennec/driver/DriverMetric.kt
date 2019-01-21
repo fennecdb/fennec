@@ -5,6 +5,9 @@ enum class DriverMetric {
     INSERT_REQ,
     UPSERT_REQ,
     REMOVE_REQ,
-    REMOVE_NS_REQ
+    REMOVE_NS_REQ,
+
+    INSERT_TIME,
+    QUERY_TIME
     ;
 }

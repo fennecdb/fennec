@@ -8,31 +8,30 @@ public interface FMetaProtoOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>repeated .db.fennec.proto.FMetaLabelProto used_label = 1;</code>
+   * <code>repeated int64 used_label_suffix = 1;</code>
    */
-  java.util.List<db.fennec.proto.FMetaLabelProto> 
-      getUsedLabelList();
+  java.util.List<java.lang.Long> getUsedLabelSuffixList();
   /**
-   * <code>repeated .db.fennec.proto.FMetaLabelProto used_label = 1;</code>
+   * <code>repeated int64 used_label_suffix = 1;</code>
    */
-  db.fennec.proto.FMetaLabelProto getUsedLabel(int index);
+  int getUsedLabelSuffixCount();
   /**
-   * <code>repeated .db.fennec.proto.FMetaLabelProto used_label = 1;</code>
+   * <code>repeated int64 used_label_suffix = 1;</code>
    */
-  int getUsedLabelCount();
-  /**
-   * <code>repeated .db.fennec.proto.FMetaLabelProto used_label = 1;</code>
-   */
-  java.util.List<? extends db.fennec.proto.FMetaLabelProtoOrBuilder> 
-      getUsedLabelOrBuilderList();
-  /**
-   * <code>repeated .db.fennec.proto.FMetaLabelProto used_label = 1;</code>
-   */
-  db.fennec.proto.FMetaLabelProtoOrBuilder getUsedLabelOrBuilder(
-      int index);
+  long getUsedLabelSuffix(int index);
 
   /**
-   * <code>int64 time_per_bucket = 2;</code>
+   * <code>string field = 2;</code>
+   */
+  java.lang.String getField();
+  /**
+   * <code>string field = 2;</code>
+   */
+  com.google.protobuf.ByteString
+      getFieldBytes();
+
+  /**
+   * <code>int64 time_per_bucket = 3;</code>
    */
   long getTimePerBucket();
 }
