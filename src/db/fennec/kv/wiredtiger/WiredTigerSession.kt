@@ -22,6 +22,8 @@ class WiredTigerSession(shouldOpenSessionDirectly: Boolean = false) : Closeable 
     private var lastCursor: WiredTigerCursor? = null
     private var isSessionOpen = false
 
+    private var sameCursor: Long = 0L
+
     init {
         if (shouldOpenSessionDirectly) {
             openSession()
@@ -55,6 +57,7 @@ class WiredTigerSession(shouldOpenSessionDirectly: Boolean = false) : Closeable 
     }
 
     fun closeCursor() {
+        lastCursor?.flushPackers(false)
         lastCursor?.close()
         lastCursor = null
     }
@@ -127,10 +130,12 @@ class WiredTigerSession(shouldOpenSessionDirectly: Boolean = false) : Closeable 
     @Throws(WiredTigerException::class)
     fun openCursor(tableName: String, option: String? = null): WiredTigerCursor {
         checkSession()
-        if (lastCursor != null && tableName.equals(lastCursor?.getTableName())) {
+        if (lastCursor != null && tableName == lastCursor?.getTableName()) {
             return lastCursor!!
         }
-
+        // close old cursor
+        lastCursor?.close()
+        // create new one
         var cursor: Cursor? = null
         try {
             cursor = _openCursor(tableName, option)

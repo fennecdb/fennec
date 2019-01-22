@@ -21,7 +21,7 @@ class HighInLowOutBenchmark(val field: String, val ns: String) : Runnable {
 
     override fun run() {
         client.connect()
-        val rateLimiter = RateLimiter.create(8.0)
+//        val rateLimiter = RateLimiter.create(64.0)
         val timer = Timer()
 
         val every = 1
@@ -30,7 +30,7 @@ class HighInLowOutBenchmark(val field: String, val ns: String) : Runnable {
         var numIteration: Long = 0
         client.use { client ->
             while (true) {
-                rateLimiter.acquire()
+//                rateLimiter.acquire()
 
                 timer.time {
 
@@ -61,7 +61,7 @@ class HighInLowOutBenchmark(val field: String, val ns: String) : Runnable {
 fun main(args: Array<String>) {
 
 
-    val numThreads = 4
+    val numThreads = 64
     val executor = Executors.newFixedThreadPool(numThreads)
     val futures = ArrayList<Future<*>>()
     for (i in 0..numThreads) {

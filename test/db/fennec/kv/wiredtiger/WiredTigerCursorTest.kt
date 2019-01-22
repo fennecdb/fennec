@@ -23,7 +23,6 @@ class WiredTigerCursorTest {
         }
     }
 
-
     @Throws(WiredTigerException::class)
     internal fun add(key: String, value: String) {
         WiredTiger.createSession(true).use {
@@ -148,6 +147,14 @@ class WiredTigerCursorTest {
             assertTrue("Checked key not found", containsCheckedKey)
         } finally {
             session?.closeSession()
+        }
+    }
+
+    @Test
+    fun testFlushPackers() {
+        WiredTiger.createSession(true).use {
+            val cursor = it.openCursor(TEST_TABLE)
+            cursor.flushPackers()
         }
     }
 
