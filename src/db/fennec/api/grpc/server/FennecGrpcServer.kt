@@ -24,7 +24,7 @@ class FennecGrpcServer(
     private val executors = MoreExecutors.listeningDecorator(Executors.newFixedThreadPool(100, threadFactory))
     private val driver: FennecDriver = FennecRawDriver(true)
     private var restServer: FennecRestServer? = null
-    private val implementation = FennecGrpcServerImpl(driver)
+    private val methods = FennecGrpcMethods(driver)
     private var grpcServer: Server? = null
 
     init {
@@ -42,7 +42,7 @@ class FennecGrpcServer(
             grpcServer = ServerBuilder
                     .forPort(grpcPort)
                     .executor(executors)
-                    .addService(implementation)
+                    .addService(methods)
                     .build()
             grpcServer?.start()
             log.atInfo().log("> Listening at port '$grpcPort'")
@@ -53,7 +53,7 @@ class FennecGrpcServer(
     }
 
     fun stop() {
-        implementation.close()
+        methods.close()
         grpcServer?.shutdownNow()
         restServer?.halt()
     }
@@ -62,7 +62,7 @@ class FennecGrpcServer(
         Runtime.getRuntime().addShutdownHook(object : Thread() {
             override fun run() {
                 log.atInfo().log("Fennec shutting down...")
-                implementation.close()
+                methods.close()
                 log.atInfo().log("Fennec shutdown. See you next time :)")
             }
         })

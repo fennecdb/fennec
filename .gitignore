@@ -10,6 +10,10 @@ protogen.sh
 protoc3/
 protobuf-3.5.1/
 out/
+dumps/
+*.index
+*.threads
+*.hprof
 
 # Compiled class file
 *.class

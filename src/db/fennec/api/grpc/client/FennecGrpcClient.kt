@@ -126,6 +126,32 @@ internal class FennecGrpcClient(val host: String = "localhost", val port: Int = 
         return request.build()
     }
 
+    fun batchInsert(batch: Iterable<FBatch>) {
+        handle {
+            val resp = stub.deadline()?.insert(buildBatchWriteReq(batch))
+            log.atInfo().log("BatchInsert:$resp")        }
+    }
+
+    fun batchUpsert(batch: Iterable<FBatch>) {
+        handle {
+            val resp = stub.deadline()?.upsert(buildBatchWriteReq(batch))
+            log.atInfo().log("BatchUpsert:$resp")
+        }
+    }
+
+    private fun buildBatchWriteReq(batch: Iterable<FBatch>): FWriteReq {
+        val request = FWriteReq.newBuilder()
+        for (entry in batch) {
+            request.addPayload(FDataEntryProto.newBuilder()
+                    .setField(entry.field)
+                    .setNamespace(entry.ns)
+                    .setData(entry.data.toProto())
+                    .build()
+            )
+        }
+        return request.build()
+    }
+
     fun remove(lowRange: Long, highRange: Long, field: String, ns: String) {
         handle {
             val resp = stub.deadline()?.remove(FRemoveReq.newBuilder()
@@ -148,6 +174,7 @@ internal class FennecGrpcClient(val host: String = "localhost", val port: Int = 
     fun close() {
         channel?.shutdown()
     }
+
 
     companion object {
         @JvmStatic private val log = FluentLogger.forEnclosingClass().config()

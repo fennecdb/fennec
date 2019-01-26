@@ -58,6 +58,22 @@ public class FennecClient implements Closeable {
         handleError(fun);
     }
 
+    public void batchInsert(Iterable<FBatch> batch) throws FennecException {
+        Supplier<Integer> fun = () -> {
+            client.batchInsert(batch);
+            return 0;
+        };
+        handleError(fun);
+    }
+
+    public void batchUpsert(Iterable<FBatch> batch) throws FennecException {
+        Supplier<Integer> fun = () -> {
+            client.batchUpsert(batch);
+            return 0;
+        };
+        handleError(fun);
+    }
+
     public void remove(long low, long high, String field, String namespace) throws FennecException {
         Supplier<Integer> fun = () -> {
             client.remove(low, high, field, namespace);

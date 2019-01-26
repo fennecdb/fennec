@@ -95,6 +95,37 @@ class FennecClientTest {
 
     @Test
     @Throws(FennecException::class)
+    fun testBatchInsert() {
+        val field = "a"
+        setup { client ->
+            val range = findRange()
+            val initialData = listOf(dOne, dTwo, dThree, dFour)
+            client.batchUpsert(listOf(
+                    FBatch(dOne, field, TEST_NS), FBatch(dTwo, field, TEST_NS), FBatch(dThree, field, TEST_NS), FBatch(dFour, field, TEST_NS)
+            ))
+            client.batchInsert(listOf(FBatch(dFive, field, TEST_NS)))
+
+            checkWrittenData(client, field, range, initialData, listOf(dFive))
+        }
+    }
+
+    @Test
+    @Throws(FennecException::class)
+    fun testBatchUpsert() {
+        val field = "b"
+        setup { client ->
+            val range = findRange()
+            client.batchUpsert(listOf(
+                    FBatch(dOne, field, TEST_NS), FBatch(dTwo, field, TEST_NS), FBatch(dThree, field, TEST_NS), FBatch(dFour, field, TEST_NS)
+            ))
+            client.batchUpsert(listOf(FBatch(dFive, field, TEST_NS)))
+
+            checkWrittenData(client, field, range, listOf(dOne, dTwo, dThree, dFive), listOf(dFour))
+        }
+    }
+
+    @Test
+    @Throws(FennecException::class)
     fun testRemoveNamespace() {
         val field = "c"
         setup { client ->

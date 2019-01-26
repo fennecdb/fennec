@@ -14,7 +14,7 @@ import db.fennec.proto.FResultProto
 import db.fennec.driver.FennecDriver
 import io.grpc.stub.StreamObserver
 
-open class FennecGrpcServerImpl(val driver: FennecDriver) : FennecServiceGrpc.FennecServiceImplBase() {
+open class FennecGrpcMethods(val driver: FennecDriver) : FennecServiceGrpc.FennecServiceImplBase() {
 
     fun <T> reply(observer: StreamObserver<T>, handleFailure: (FennecServerException) -> T, body: () -> T) {
         with (observer) {
@@ -76,7 +76,6 @@ open class FennecGrpcServerImpl(val driver: FennecDriver) : FennecServiceGrpc.Fe
     private fun write(request: FWriteReq, observer: StreamObserver<FStatus>, shouldUpdate: Boolean) {
         log.atFine().log("Received write(update:$shouldUpdate)...")
         reply(observer, ::handleFail) {
-//            val ns = nsFromProto(request.)
             val payload: List<FDataEntryProto> = request.payloadList
             val data = HashMultimap.create<Key, FData>()
             for (e in payload) {
