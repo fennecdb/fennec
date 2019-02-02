@@ -118,7 +118,6 @@ class FennecRawDriver(
         for (selection in query.selections) {
             with (selection) {
                 gatekeeper.acquire(field, ns) {
-                    println("field$field")
                     // eval query
                     val metaLabel = createMetaLabel(field)
                     val bytes = kv.get(Key(ns = ns, field = metaLabel))
@@ -140,12 +139,10 @@ class FennecRawDriver(
                             x2 = suffix + timePerBucket - 1
 
                             val isIn = x1 <= y2 && y1 <= x2//x1 <= y1 || x2 <= y2
-                            println("IsIn:$isIn  -> ($y1 - $y2), x1=$x1, x2=$x2")
                             if (isIn) {
                                 toBeLoadedKeys.add(Key(ns = ns, field = "${meta.field}:$suffix"))
                             }
                         }
-                        println("toBeLoaded:$toBeLoadedKeys")
                         // reduce
                         for (key in toBeLoadedKeys) {
                             val entries = FDataBucketProto.parseFrom(kv.get(key))
@@ -198,8 +195,6 @@ class FennecRawDriver(
                     }
                 }
                 val avgSize = totalSize / numBuckets
-
-                println("avgSize:$avgSize byte, $maxAvgBucketSize max:${maxSize}, min:$minSize, maxBucket:$maxBucketSize")
 
                 // any bucket bigger than max bucket size?
                 // or avg bucket size bigger than max avg bucket size?
