@@ -17,65 +17,49 @@ Fennec aims to be a general purpose timeseries database.
 * Prometheus exporter 
 * CLI administration 
 
-## Installation 
-
-### Requirements
+## Installation
+#### Requirements
 * JDK 8
 * WiredTiger 3.1.0 ([repo](https://github.com/wiredtiger/wiredtiger))
 * Gradle
 
-### WiredTiger Installation
+In order to install fennec you will have to install the key-value storage WiredTiger 3.1 first.
 
-1. Clone the repository
-    ```
-    git clone https://github.com/wiredtiger/wiredtiger
-    cd wiredtiger/
-    git checkout 81305b4ade4b92bde247931334c99c32fb148c44
-    ```
-2. Install additional build requirements (apt for Ubuntu/Debian)
-    ```
-    sudo apt install -y autoconf automake libtool swig build-essential
-    ```
+Use the following scripts for convenience:
+1. `scripts/install_wt.sh` to install WiredTiger
+2. `scripts/install_fe.sh` to install Fennec
 
-3. Build the library
-    ```
-    sh autogen.sh
-    ./configure -enable-java
-    make
-    make install
-    ```
-4. Merge to common directory
-    ```
-    cp /usr/local/lib/libwiredtiger* /usr/local/share/java/wiredtiger-3.1.0/
-    ```
-__OR__ alternatively use the script at `scripts/install_wt.sh` doing the steps above all at once.
 
-### Fennec Installation
-
-1. Clone the repository
-    ```
-    git clone https://github.com/fennecdb/fennec
-    cd fennec/
-    ```
-2. [Optional] Test the current build (should finish with `BUILD SUCCESSFUL`)
-    ```
-    ./gradlew build 
-    ```
-3. Build fennec's _fat_ jar
-    ```
-    ./gradlew shadowJar
-    ```
-4. Move to proper installation directory
-    ```
-    sudo mkdir /etc/fennec
-    sudo chown -R `whoami` /etc/fennec
-    mv build/libs/fennec.jar /etc/fennec
-    ```
-    
-__OR__ alternatively use the script at `scripts/install_fe.sh` doing the steps above all at once.
+__OR__ check the [Wiki for a more detailed guidance](https://github.com/fennecdb/fennec/wiki/Installation).
 
 ## Getting Started
-TODO
+
+In this example, it is assumed that the server is reachable over localhost under port 64733:
+
+```java
+public static void main(String[] args) {
+    try (FennecClient client = new FennecClient("localhost", 64733)) {
+        client.connect();
+        String myField = "my_field";
+        String myNamespace = "my_namespace";
+        // insert sth
+        Instant now = Instant.now();
+        Iterable<FData> data = Collections.singletonList(new FData(1.0, now.toEpochMilli()));
+        client.insert(data, myField, myNamespace);
+
+        // do a query
+        Instant oneHourAgo = now.minus(1, ChronoUnit.HOURS);
+        InRange range = new InRange(oneHourAgo.toEpochMilli(), now.toEpochMilli());
+      	FQuery query = new FSelection(myField, myNamespace, range).toQuery();
+        client.query();
+
+    } catch (FennecException | IOException e) {
+        // to handle
+    }
+}
+```
+__OR__ check the [Wiki for further explanations](https://github.com/fennecdb/fennec/wiki/Getting-Started).
+
 
 ## License
 [Apache 2.0](https://github.com/fennecdb/fennec/blob/master/LICENSE)
