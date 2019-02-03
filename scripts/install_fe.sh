@@ -9,3 +9,4 @@ cd fennec/
 sudo mkdir /etc/fennec
 sudo chown -R `whoami` /etc/fennec
 mv build/libs/fennec.jar /etc/fennec
+mv deps/* /etc/fennec/deps/
