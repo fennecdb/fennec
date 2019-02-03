@@ -50,8 +50,8 @@ public static void main(String[] args) {
         // do a query
         Instant oneHourAgo = now.minus(1, ChronoUnit.HOURS);
         InRange range = new InRange(oneHourAgo.toEpochMilli(), now.toEpochMilli());
-      	FQuery query = new FSelection(myField, myNamespace, range).toQuery();
-        client.query();
+      	FQuery fQuery = new FSelection(myField, myNamespace, range).toQuery();
+        client.query(fQuery);
 
     } catch (FennecException | IOException e) {
         // to handle
