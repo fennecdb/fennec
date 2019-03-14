@@ -1,6 +1,6 @@
 # Fennec 🦊 (Work-in-Progress)
 
-[![Build Status](https://travis-ci.com/fennecdb/fennec.svg?branch=master)](https://travis-ci.com/fennecdb/fennec)
+[![Build Status](https://dev.azure.com/fennecdb/fennec/_apis/build/status/fennecdb.fennec?branchName=master)](https://dev.azure.com/fennecdb/fennec/_build/latest?definitionId=2&branchName=master)
 
 Fennec aims to be a general purpose timeseries database.
 
