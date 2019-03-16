@@ -31,7 +31,7 @@ class MaintenanceWorker(val driver: FennecDriver) {
         driver.gc()
         // closing session will force sync flush to drive
         driver.reset()
-        val estimatedTime = System.nanoTime() - startTime
+        System.nanoTime() - startTime
     }
 
     companion object {

@@ -36,7 +36,7 @@ class FennecRawDriverTest {
 
     @Test
     fun testMetaParsing() {
-        WiredTigerKV(true).use { kv ->
+        WiredTigerKV(true).use {
             val builder = FMetaProto.newBuilder()
             with (builder) {
                 for (i in 0..500_000) {

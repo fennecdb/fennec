@@ -51,7 +51,7 @@ class FennecClientTest {
         } finally {
             // stop server
             server.stop()
-            serverThread.stop()
+            serverThread.interrupt()
         }
     }
 

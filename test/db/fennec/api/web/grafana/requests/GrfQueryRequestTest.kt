@@ -10,7 +10,7 @@ class GrfQueryRequestTest {
 
     @Test
     fun testParsing() {
-        val json = FileUtils.readFileToString(File("./resc/testdata/grafana/query_req_simple.json"))
+        val json = FileUtils.readFileToString(File("./resc/testdata/grafana/query_req_simple.json"), Charsets.UTF_8)
         log.atInfo().log(json)
         val queryRequest = GrfQueryRequest.parse(json)
         log.atInfo().log(queryRequest.toString())

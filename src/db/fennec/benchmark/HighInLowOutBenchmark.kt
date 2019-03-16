@@ -32,18 +32,14 @@ class HighInLowOutBenchmark(val field: String, val ns: String, val mode: Mode) :
 
         client.removeNamespace(ns)
         var numIteration: Long = 0
-        client.use { client ->
+        client.use {
             while (true) {
-//                rateLimiter.acquire()
-
                 timer.time {
 
                     when (mode) {
                         Mode.INSERT -> insertRandom()
                         Mode.QUERY -> queryRandom()
                     }
-
-
                 }
                 numIteration++
                 if ((numIteration % every) == 0L) {

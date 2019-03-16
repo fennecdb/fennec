@@ -16,7 +16,7 @@ class ArgumentParser {
             val portOption = Option.builder(OPTION_PORT)
                     .required(false)
                     .hasArg(true)
-                    .type(Int.javaClass)
+                    .type(Int::class.java)
                     .desc("Sets port Panthera is binding to.")
                     .build()
 

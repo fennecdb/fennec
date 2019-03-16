@@ -177,7 +177,6 @@ class WiredTigerSession(shouldOpenSessionDirectly: Boolean = false) : Closeable 
                     throw wte
                 }
             }
-            e = wte
         } finally {
         }
 

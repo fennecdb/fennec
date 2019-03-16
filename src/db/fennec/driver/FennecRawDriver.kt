@@ -83,7 +83,7 @@ class FennecRawDriver(
         Metrics.FDRIVER_QUERY_REQ.mark()
         val context: Timer.Context? = FDRIVER_QUERY_TIME.time()
         try {
-            return query(query, false) { key, data -> }
+            return query(query, false) { _, _ -> }
         } finally {
             context?.stop()
         }
