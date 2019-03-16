@@ -7,6 +7,7 @@ import db.fennec.fql.Key
 import db.fennec.kv.wiredtiger.WiredTigerKV
 import org.junit.After
 import org.junit.Assert.assertTrue
+import org.junit.Ignore
 import org.junit.Test
 
 class ChollaTest {
@@ -19,6 +20,7 @@ class ChollaTest {
     }
 
     @Test
+    @Ignore
     fun testClean() {
         val field = "xyz"
         val fineField = "def"
