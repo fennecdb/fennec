@@ -32,6 +32,8 @@ class FennecRestServer(val driver: FennecDriver, val restPort: Int = GlobalConst
     }
 
     fun launch() {
+        log.atWarning().log("Starting resting server under :$restPort,\nDashboard available " +
+                "under http://localhost:$restPort/dashboard")
         val vxOptions = VertxOptions().setBlockedThreadCheckInterval(200000000)
         vertx = Vertx.vertx(vxOptions)
         val router = Router.router(vertx)

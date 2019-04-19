@@ -10,6 +10,9 @@ Fennec aims to be a general purpose timeseries database.
 * TCP client for the JVM / Java
 * Grafana support (Datasource API & Plugin),️ _Plugin not public yet_
 
+## In Progress
+* Dashboard
+
 ## Roadmap
 * Clients for Go, Node, Ruby and Python
 * REST API 
