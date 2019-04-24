@@ -51,7 +51,10 @@ class FennecRestServer(val driver: FennecDriver, val restPort: Int = GlobalConst
 
         val dashView = DashboardView(driver)
         router.route().path("/dashboard").handler { routingContext ->
-            routingContext.respondHtml(dashView.render(routingContext))
+            routingContext.respondHtml(FileUtils.readFileToString(File("./dashboard/index.html")))
+        }
+        router.route().path("/dashboard/bundle.js").handler { routingContext ->
+            routingContext.respondJs(FileUtils.readFileToString(File("./dashboard/build/bundle/bundle.js")))
         }
 
         // Grafana SimpleJson Endpoints
@@ -95,7 +98,9 @@ class FennecRestServer(val driver: FennecDriver, val restPort: Int = GlobalConst
         response().putHeader("content-type", "text/html").end(html)
     }
 
-
+    fun RoutingContext.respondJs(html: String) {
+        response().putHeader("content-type", "text/javascript").end(html)
+    }
 
     companion object {
         private val log = FluentLogger.forEnclosingClass().config()

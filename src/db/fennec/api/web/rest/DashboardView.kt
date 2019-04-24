@@ -11,6 +11,8 @@ import java.time.Instant
 import java.util.EnumMap
 import j2html.TagCreator.attrs
 import j2html.tags.DomContent
+import org.apache.commons.io.FileUtils
+import java.io.File
 import java.lang.Appendable
 import kotlin.math.roundToInt
 
@@ -53,41 +55,42 @@ class DashboardView(val driver: FennecDriver) : View {
     }
 
     override fun render(routingContext: RoutingContext): String {
-        return html(
-                head(
-                        title("Dashboard - Fennec"),
-                        link().withRel("stylesheet").withHref("/style/main.css"),
-                        link().withRel("stylesheet").withHref("https://fonts.googleapis.com/css?family=Noto+Sans")
-                ),
-                body(
-                        header("Fennec Dashboard"),
-                        main(attrs("#main.content"),
-                                h3("Up since $uptime")
-                        ).withClasses("block", "block-mar"),
-                        div(
-                                h3("Endpoints"),
-                                table(
-                                    tr(
-                                            td("Operation"),
-                                            td("M1"),
-                                            td("Min (ms)"),
-                                            td("Max (ms)"),
-                                            td("Mean (ms)"),
-                                            td("Median (ms)"),
-                                            td("StdDev (ms)")
-                                    ),
-                                    *generateEntries()
-                                ).withClass("metric")
-//                                ul(
-//                                        li().withText("- query: ${meters.meter(DriverMetric.QUERY_REQ)} req/s"),
-//                                        li().withText("- insert: ${meters.meter(DriverMetric.INSERT_REQ)} req/s (${timers.time(DriverMetric.INSERT_TIME)})"),
-//                                        li().withText("- upsert: ${meters.meter(DriverMetric.UPSERT_REQ)} req/s"),
-//                                        li().withText("- remove: ${meters.meter(DriverMetric.REMOVE_REQ)} req/s"),
-//                                        li().withText("- remove NS: ${meters.meter(DriverMetric.REMOVE_NS_REQ)} req/s")
-//                                )
-                        ).withClasses("block", "block-yel")
-                )
-        ).render()
+        return FileUtils.readFileToString(File("./dashboard/index.html"))
+//        return html(
+//                head(
+//                        title("Dashboard - Fennec"),
+//                        link().withRel("stylesheet").withHref("/style/main.css"),
+//                        link().withRel("stylesheet").withHref("https://fonts.googleapis.com/css?family=Noto+Sans")
+//                ),
+//                body(
+//                        header("Fennec Dashboard"),
+//                        main(attrs("#main.content"),
+//                                h3("Up since $uptime")
+//                        ).withClasses("block", "block-mar"),
+//                        div(
+//                                h3("Endpoints"),
+//                                table(
+//                                    tr(
+//                                            td("Operation"),
+//                                            td("M1"),
+//                                            td("Min (ms)"),
+//                                            td("Max (ms)"),
+//                                            td("Mean (ms)"),
+//                                            td("Median (ms)"),
+//                                            td("StdDev (ms)")
+//                                    ),
+//                                    *generateEntries()
+//                                ).withClass("metric")
+////                                ul(
+////                                        li().withText("- query: ${meters.meter(DriverMetric.QUERY_REQ)} req/s"),
+////                                        li().withText("- insert: ${meters.meter(DriverMetric.INSERT_REQ)} req/s (${timers.time(DriverMetric.INSERT_TIME)})"),
+////                                        li().withText("- upsert: ${meters.meter(DriverMetric.UPSERT_REQ)} req/s"),
+////                                        li().withText("- remove: ${meters.meter(DriverMetric.REMOVE_REQ)} req/s"),
+////                                        li().withText("- remove NS: ${meters.meter(DriverMetric.REMOVE_NS_REQ)} req/s")
+////                                )
+//                        ).withClasses("block", "block-yel")
+//                )
+//        ).render()
     }
 
     companion object {
