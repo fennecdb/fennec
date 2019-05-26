@@ -2,6 +2,13 @@ html, body {
 	position: relative;
 	width: 100%;
 	height: 100%;
+	font-family: 'Pontano Sans', sans-serif;
+	--colZ: #ecf0f1;
+	--colA: #fcbb6d;
+	--colB: #d8737f;
+	--colC: #ab6c82;
+	--colD: #685d79;
+	--colE: #475c7a;
 }
 
 body {
@@ -9,7 +16,7 @@ body {
 	margin: 0;
 	padding: 0px;
 	box-sizing: border-box;
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+	/*font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;*/
 }
 
 a {

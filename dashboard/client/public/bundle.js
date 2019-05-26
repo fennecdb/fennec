@@ -95,7 +95,37 @@
 
 exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, ".wrapper.svelte-15kb6qu{--colZ:#ecf0f1;--colA:#fcbb6d;--colB:#d8737f;--colC:#ab6c82;--colD:#685d79;--colE:#475c7a;height:100%;width:100%;flex-direction:column;background-color:#ecf0f1}header.svelte-15kb6qu{height:68px;background-color:var(--colA);color:#ecf0f1;font-weight:bold;line-height:68px;font-size:20px;padding-left:20px;border-bottom:1px solid var(--colB)}.wrapper.svelte-15kb6qu,.container.svelte-15kb6qu{display:flex;flex:1}.container.svelte-15kb6qu ul.svelte-15kb6qu{background-color:var(--colB);color:#ecf0f1;list-style:none;margin:0;padding:20px 0 20px 0;display:flex;flex-direction:column;width:100px}.container.svelte-15kb6qu ul li.svelte-15kb6qu{height:64px;width:80px;margin-left:calc(50px - 45px);text-align:center;cursor:pointer;border-top:1px solid rgba(255, 255, 255, 0.1);border-bottom:1px solid rgba(255, 255, 255, 0.1);margin-bottom:10px;padding:4px 5px 0px 5px}.container.svelte-15kb6qu ul li.svelte-15kb6qu:hover{background-color:rgba(255, 255, 255, 0.2)}.container.svelte-15kb6qu ul li .icon.svelte-15kb6qu{font-size:24px;height:24px;width:24px;padding-top:5px}.container.svelte-15kb6qu ul li span.svelte-15kb6qu{display:block;padding-top:5px;font-size:12px}.container.svelte-15kb6qu .content.svelte-15kb6qu{flex:1}footer.svelte-15kb6qu{background-color:var(--colE);height:40px;color:var(--colZ);border-top:1px solid var(--colD)}footer.svelte-15kb6qu ul.svelte-15kb6qu{list-style:none}footer.svelte-15kb6qu li.svelte-15kb6qu{float:left}", ""]);
+exports.push([module.i, ".wrapper.svelte-1ydcj8r{height:100%;width:100%;flex-direction:column;background-color:var(--colC)}header.svelte-1ydcj8r{font-family:'Medula One', cursive;height:68px;background-color:var(--colA);color:#ecf0f1;font-weight:bold;line-height:68px;font-size:30px;padding-left:20px;border-bottom:1px solid var(--colB)}.wrapper.svelte-1ydcj8r,.container.svelte-1ydcj8r{display:flex;flex:1}.container.svelte-1ydcj8r .content.svelte-1ydcj8r{flex:1}", ""]);
+
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js!./src/Footer.svelte.css":
+/*!*********************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./src/Footer.svelte.css ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
+// Module
+exports.push([module.i, "footer.svelte-r4jsyv{--height:40px;background-color:var(--colE);height:var(--height);line-height:var(--height);color:var(--colZ);border-top:1px solid var(--colD);font-size:12px}footer.svelte-r4jsyv ul.svelte-r4jsyv{list-style:none;margin-left:calc(50% - 100px)}footer.svelte-r4jsyv li.svelte-r4jsyv{float:left;margin-right:20px;font-weight:bold;cursor:pointer}", ""]);
+
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js!./src/Menu.svelte.css":
+/*!*******************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./src/Menu.svelte.css ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
+// Module
+exports.push([module.i, "ul.svelte-ltk2vr{background-color:var(--colB);color:var(--colZ);list-style:none;margin:0;padding:20px 0 20px 0;display:flex;flex-direction:column;width:100px}ul.svelte-ltk2vr li.svelte-ltk2vr{height:64px;width:80px;margin-left:calc(50px - 45px);text-align:center;cursor:pointer;border:1px solid rgba(255, 255, 255, 0.0);margin-bottom:10px;padding:4px 5px 0px 5px}ul.svelte-ltk2vr li.svelte-ltk2vr:hover{background-color:rgba(255, 255, 255, 0.2);border:1px solid rgba(255, 255, 255, 0.5)}ul.svelte-ltk2vr li .icon.svelte-ltk2vr{font-size:24px;height:24px;width:24px;padding-top:5px}ul.svelte-ltk2vr li span.svelte-ltk2vr{display:block;padding-top:5px;font-size:12px}", ""]);
 
 
 
@@ -2336,61 +2366,160 @@ class SvelteComponentDev extends SvelteComponent {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var svelte_internal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svelte/internal */ "./node_modules/svelte/internal.mjs");
-/* harmony import */ var _home_yoshidev_repos_fennec_dashboard_client_src_App_svelte_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./src/App.svelte.css */ "./src/App.svelte.css");
-/* harmony import */ var _home_yoshidev_repos_fennec_dashboard_client_src_App_svelte_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_home_yoshidev_repos_fennec_dashboard_client_src_App_svelte_css__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _Menu_svelte__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Menu.svelte */ "./src/Menu.svelte");
+/* harmony import */ var _Footer_svelte__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Footer.svelte */ "./src/Footer.svelte");
+/* harmony import */ var _Dashboard_svelte__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Dashboard.svelte */ "./src/Dashboard.svelte");
+/* harmony import */ var _Query_svelte__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Query.svelte */ "./src/Query.svelte");
+/* harmony import */ var _Configuration_svelte__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Configuration.svelte */ "./src/Configuration.svelte");
+/* harmony import */ var _home_yoshidev_repos_fennec_dashboard_client_src_App_svelte_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./src/App.svelte.css */ "./src/App.svelte.css");
+/* harmony import */ var _home_yoshidev_repos_fennec_dashboard_client_src_App_svelte_css__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_home_yoshidev_repos_fennec_dashboard_client_src_App_svelte_css__WEBPACK_IMPORTED_MODULE_6__);
 /* src/App.svelte generated by Svelte v3.4.2 */
 
 
-function get_each_context(ctx, list, i) {
-	const child_ctx = Object.create(ctx);
-	child_ctx.item = list[i];
-	return child_ctx;
-}
 
-// (18:12) {#each menuItems as item}
-function create_each_block(ctx) {
-	var li, i, i_class_value, t0, span, t1_value = ctx.item.name, t1;
+
+
+
+
+// (28:41) 
+function create_if_block_2(ctx) {
+	var current;
+
+	var configuration = new _Configuration_svelte__WEBPACK_IMPORTED_MODULE_5__["default"]({});
 
 	return {
 		c() {
-			li = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("li");
-			i = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("i");
-			t0 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
-			span = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("span");
-			t1 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])(t1_value);
-			i.className = i_class_value = "icon " + ctx.item.faIcon + " svelte-15kb6qu";
-			span.className = "svelte-15kb6qu";
-			li.className = "svelte-15kb6qu";
+			configuration.$$.fragment.c();
 		},
 
 		m(target, anchor) {
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["insert"])(target, li, anchor);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(li, i);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(li, t0);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(li, span);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(span, t1);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["mount_component"])(configuration, target, anchor);
+			current = true;
 		},
 
-		p: svelte_internal__WEBPACK_IMPORTED_MODULE_0__["noop"],
+		i(local) {
+			if (current) return;
+			configuration.$$.fragment.i(local);
+
+			current = true;
+		},
+
+		o(local) {
+			configuration.$$.fragment.o(local);
+			current = false;
+		},
 
 		d(detaching) {
-			if (detaching) {
-				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach"])(li);
-			}
+			configuration.$destroy(detaching);
+		}
+	};
+}
+
+// (26:41) 
+function create_if_block_1(ctx) {
+	var current;
+
+	var query = new _Query_svelte__WEBPACK_IMPORTED_MODULE_4__["default"]({});
+
+	return {
+		c() {
+			query.$$.fragment.c();
+		},
+
+		m(target, anchor) {
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["mount_component"])(query, target, anchor);
+			current = true;
+		},
+
+		i(local) {
+			if (current) return;
+			query.$$.fragment.i(local);
+
+			current = true;
+		},
+
+		o(local) {
+			query.$$.fragment.o(local);
+			current = false;
+		},
+
+		d(detaching) {
+			query.$destroy(detaching);
+		}
+	};
+}
+
+// (24:12) {#if selectedMenu === 1}
+function create_if_block(ctx) {
+	var current;
+
+	var dashboard = new _Dashboard_svelte__WEBPACK_IMPORTED_MODULE_3__["default"]({});
+
+	return {
+		c() {
+			dashboard.$$.fragment.c();
+		},
+
+		m(target, anchor) {
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["mount_component"])(dashboard, target, anchor);
+			current = true;
+		},
+
+		i(local) {
+			if (current) return;
+			dashboard.$$.fragment.i(local);
+
+			current = true;
+		},
+
+		o(local) {
+			dashboard.$$.fragment.o(local);
+			current = false;
+		},
+
+		d(detaching) {
+			dashboard.$destroy(detaching);
 		}
 	};
 }
 
 function create_fragment(ctx) {
-	var div2, header, t1, div1, ul, t2, div0, t3, footer;
+	var div2, header, t1, div1, updating_selectedMenu, t2, div0, current_block_type_index, if_block, t3, current;
 
-	var each_value = ctx.menuItems;
-
-	var each_blocks = [];
-
-	for (var i = 0; i < each_value.length; i += 1) {
-		each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
+	function menu_selectedMenu_binding(value) {
+		ctx.menu_selectedMenu_binding.call(null, value);
+		updating_selectedMenu = true;
+		Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_flush_callback"])(() => updating_selectedMenu = false);
 	}
+
+	let menu_props = {};
+	if (ctx.selectedMenu !== void 0) {
+		menu_props.selectedMenu = ctx.selectedMenu;
+	}
+	var menu = new _Menu_svelte__WEBPACK_IMPORTED_MODULE_1__["default"]({ props: menu_props });
+
+	Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["add_binding_callback"])(() => Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["bind"])(menu, 'selectedMenu', menu_selectedMenu_binding));
+
+	var if_block_creators = [
+		create_if_block,
+		create_if_block_1,
+		create_if_block_2
+	];
+
+	var if_blocks = [];
+
+	function select_block_type(ctx) {
+		if (ctx.selectedMenu === 1) return 0;
+		if (ctx.selectedMenu === 2) return 1;
+		if (ctx.selectedMenu === 3) return 2;
+		return -1;
+	}
+
+	if (~(current_block_type_index = select_block_type(ctx))) {
+		if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+	}
+
+	var footer = new _Footer_svelte__WEBPACK_IMPORTED_MODULE_2__["default"]({});
 
 	return {
 		c() {
@@ -2399,25 +2528,16 @@ function create_fragment(ctx) {
 			header.innerHTML = `<span>Fennec Sahara</span>`;
 			t1 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
 			div1 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("div");
-			ul = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("ul");
-
-			for (var i = 0; i < each_blocks.length; i += 1) {
-				each_blocks[i].c();
-			}
-
+			menu.$$.fragment.c();
 			t2 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
 			div0 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("div");
+			if (if_block) if_block.c();
 			t3 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
-			footer = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("footer");
-			footer.innerHTML = `<ul class="svelte-15kb6qu"><li class="svelte-15kb6qu">FennecDB</li>
-			            <li class="svelte-15kb6qu">Credits</li>
-			            <li class="svelte-15kb6qu">Github</li></ul>`;
-			header.className = "svelte-15kb6qu";
-			ul.className = "menu svelte-15kb6qu";
-			div0.className = "content svelte-15kb6qu";
-			div1.className = "container svelte-15kb6qu";
-			footer.className = "svelte-15kb6qu";
-			div2.className = "wrapper svelte-15kb6qu";
+			footer.$$.fragment.c();
+			header.className = "svelte-1ydcj8r";
+			div0.className = "content svelte-1ydcj8r";
+			div1.className = "container svelte-1ydcj8r";
+			div2.className = "wrapper svelte-1ydcj8r";
 		},
 
 		m(target, anchor) {
@@ -2425,68 +2545,101 @@ function create_fragment(ctx) {
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div2, header);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div2, t1);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div2, div1);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div1, ul);
-
-			for (var i = 0; i < each_blocks.length; i += 1) {
-				each_blocks[i].m(ul, null);
-			}
-
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["mount_component"])(menu, div1, null);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div1, t2);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div1, div0);
+			if (~current_block_type_index) if_blocks[current_block_type_index].m(div0, null);
 			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div2, t3);
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(div2, footer);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["mount_component"])(footer, div2, null);
+			current = true;
 		},
 
 		p(changed, ctx) {
-			if (changed.menuItems) {
-				each_value = ctx.menuItems;
+			var menu_changes = {};
+			if (!updating_selectedMenu && changed.selectedMenu) {
+				menu_changes.selectedMenu = ctx.selectedMenu;
+			}
+			menu.$set(menu_changes);
 
-				for (var i = 0; i < each_value.length; i += 1) {
-					const child_ctx = get_each_context(ctx, each_value, i);
+			var previous_block_index = current_block_type_index;
+			current_block_type_index = select_block_type(ctx);
+			if (current_block_type_index !== previous_block_index) {
+				if (if_block) {
+					Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["group_outros"])();
+					Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["on_outro"])(() => {
+						if_blocks[previous_block_index].d(1);
+						if_blocks[previous_block_index] = null;
+					});
+					if_block.o(1);
+					Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["check_outros"])();
+				}
 
-					if (each_blocks[i]) {
-						each_blocks[i].p(changed, child_ctx);
-					} else {
-						each_blocks[i] = create_each_block(child_ctx);
-						each_blocks[i].c();
-						each_blocks[i].m(ul, null);
+				if (~current_block_type_index) {
+					if_block = if_blocks[current_block_type_index];
+					if (!if_block) {
+						if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+						if_block.c();
 					}
+					if_block.i(1);
+					if_block.m(div0, null);
+				} else {
+					if_block = null;
 				}
-
-				for (; i < each_blocks.length; i += 1) {
-					each_blocks[i].d(1);
-				}
-				each_blocks.length = each_value.length;
 			}
 		},
 
-		i: svelte_internal__WEBPACK_IMPORTED_MODULE_0__["noop"],
-		o: svelte_internal__WEBPACK_IMPORTED_MODULE_0__["noop"],
+		i(local) {
+			if (current) return;
+			menu.$$.fragment.i(local);
+
+			if (if_block) if_block.i();
+
+			footer.$$.fragment.i(local);
+
+			current = true;
+		},
+
+		o(local) {
+			menu.$$.fragment.o(local);
+			if (if_block) if_block.o();
+			footer.$$.fragment.o(local);
+			current = false;
+		},
 
 		d(detaching) {
 			if (detaching) {
 				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach"])(div2);
 			}
 
-			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["destroy_each"])(each_blocks, detaching);
+			menu.$destroy();
+
+			if (~current_block_type_index) if_blocks[current_block_type_index].d();
+
+			footer.$destroy();
 		}
 	};
 }
 
 function instance($$self, $$props, $$invalidate) {
-	let { name } = $$props;
+	
 
-	let menuItems = [
-        { id: 'a', name: 'Dashboard', faIcon: "fas fa-chart-area"},
-        { id: 'c', name: 'Query', faIcon: "fas fa-search" },
-        { id: 'b', name: 'Configuration', faIcon: "fas fa-sliders-h"},
-    ];
+	let { name } = $$props;
+    let selectedMenu = 1;
+
+	function menu_selectedMenu_binding(value) {
+		selectedMenu = value;
+		$$invalidate('selectedMenu', selectedMenu);
+	}
 
 	$$self.$set = $$props => {
 		if ('name' in $$props) $$invalidate('name', name = $$props.name);
 	};
 
-	return { name, menuItems };
+	return {
+		name,
+		selectedMenu,
+		menu_selectedMenu_binding
+	};
 }
 
 class App extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__["SvelteComponent"] {
@@ -2533,6 +2686,446 @@ var update = __webpack_require__(/*! ../node_modules/style-loader/lib/addStyles.
 if(content.locals) module.exports = content.locals;
 
 if(false) {}
+
+/***/ }),
+
+/***/ "./src/Configuration.svelte":
+/*!**********************************!*\
+  !*** ./src/Configuration.svelte ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var svelte_internal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svelte/internal */ "./node_modules/svelte/internal.mjs");
+/* src/Configuration.svelte generated by Svelte v3.4.2 */
+
+
+function create_fragment(ctx) {
+	var t;
+
+	return {
+		c() {
+			t = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])("Configuration");
+		},
+
+		m(target, anchor) {
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["insert"])(target, t, anchor);
+		},
+
+		p: svelte_internal__WEBPACK_IMPORTED_MODULE_0__["noop"],
+		i: svelte_internal__WEBPACK_IMPORTED_MODULE_0__["noop"],
+		o: svelte_internal__WEBPACK_IMPORTED_MODULE_0__["noop"],
+
+		d(detaching) {
+			if (detaching) {
+				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach"])(t);
+			}
+		}
+	};
+}
+
+class Configuration extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__["SvelteComponent"] {
+	constructor(options) {
+		super();
+		Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["init"])(this, options, null, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__["safe_not_equal"], []);
+	}
+}
+
+
+if (false) {}
+
+/* harmony default export */ __webpack_exports__["default"] = (Configuration);
+
+
+/***/ }),
+
+/***/ "./src/Dashboard.svelte":
+/*!******************************!*\
+  !*** ./src/Dashboard.svelte ***!
+  \******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var svelte_internal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svelte/internal */ "./node_modules/svelte/internal.mjs");
+/* src/Dashboard.svelte generated by Svelte v3.4.2 */
+
+
+function create_fragment(ctx) {
+	var t;
+
+	return {
+		c() {
+			t = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])("Dashboard");
+		},
+
+		m(target, anchor) {
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["insert"])(target, t, anchor);
+		},
+
+		p: svelte_internal__WEBPACK_IMPORTED_MODULE_0__["noop"],
+		i: svelte_internal__WEBPACK_IMPORTED_MODULE_0__["noop"],
+		o: svelte_internal__WEBPACK_IMPORTED_MODULE_0__["noop"],
+
+		d(detaching) {
+			if (detaching) {
+				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach"])(t);
+			}
+		}
+	};
+}
+
+class Dashboard extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__["SvelteComponent"] {
+	constructor(options) {
+		super();
+		Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["init"])(this, options, null, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__["safe_not_equal"], []);
+	}
+}
+
+
+if (false) {}
+
+/* harmony default export */ __webpack_exports__["default"] = (Dashboard);
+
+
+/***/ }),
+
+/***/ "./src/Footer.svelte":
+/*!***************************!*\
+  !*** ./src/Footer.svelte ***!
+  \***************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var svelte_internal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svelte/internal */ "./node_modules/svelte/internal.mjs");
+/* harmony import */ var _home_yoshidev_repos_fennec_dashboard_client_src_Footer_svelte_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./src/Footer.svelte.css */ "./src/Footer.svelte.css");
+/* harmony import */ var _home_yoshidev_repos_fennec_dashboard_client_src_Footer_svelte_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_home_yoshidev_repos_fennec_dashboard_client_src_Footer_svelte_css__WEBPACK_IMPORTED_MODULE_1__);
+/* src/Footer.svelte generated by Svelte v3.4.2 */
+
+
+function create_fragment(ctx) {
+	var footer;
+
+	return {
+		c() {
+			footer = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("footer");
+			footer.innerHTML = `<ul class="svelte-r4jsyv"><li class="svelte-r4jsyv">Credits</li>
+			        <li class="svelte-r4jsyv">Github</li></ul>`;
+			footer.className = "svelte-r4jsyv";
+		},
+
+		m(target, anchor) {
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["insert"])(target, footer, anchor);
+		},
+
+		p: svelte_internal__WEBPACK_IMPORTED_MODULE_0__["noop"],
+		i: svelte_internal__WEBPACK_IMPORTED_MODULE_0__["noop"],
+		o: svelte_internal__WEBPACK_IMPORTED_MODULE_0__["noop"],
+
+		d(detaching) {
+			if (detaching) {
+				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach"])(footer);
+			}
+		}
+	};
+}
+
+class Footer extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__["SvelteComponent"] {
+	constructor(options) {
+		super();
+		Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["init"])(this, options, null, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__["safe_not_equal"], []);
+	}
+}
+
+
+if (false) {}
+
+/* harmony default export */ __webpack_exports__["default"] = (Footer);
+
+
+
+
+/***/ }),
+
+/***/ "./src/Footer.svelte.css":
+/*!*******************************!*\
+  !*** ./src/Footer.svelte.css ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../node_modules/css-loader/dist/cjs.js!./Footer.svelte.css */ "./node_modules/css-loader/dist/cjs.js!./src/Footer.svelte.css");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./src/Menu.svelte":
+/*!*************************!*\
+  !*** ./src/Menu.svelte ***!
+  \*************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var svelte_internal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svelte/internal */ "./node_modules/svelte/internal.mjs");
+/* harmony import */ var _home_yoshidev_repos_fennec_dashboard_client_src_Menu_svelte_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./src/Menu.svelte.css */ "./src/Menu.svelte.css");
+/* harmony import */ var _home_yoshidev_repos_fennec_dashboard_client_src_Menu_svelte_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_home_yoshidev_repos_fennec_dashboard_client_src_Menu_svelte_css__WEBPACK_IMPORTED_MODULE_1__);
+/* src/Menu.svelte generated by Svelte v3.4.2 */
+
+
+function get_each_context(ctx, list, i) {
+	const child_ctx = Object.create(ctx);
+	child_ctx.item = list[i];
+	return child_ctx;
+}
+
+// (11:4) {#each menuItems as item}
+function create_each_block(ctx) {
+	var li, i, i_class_value, t0, span, t1_value = ctx.item.name, t1, t2, dispose;
+
+	function mouseup_handler(...args) {
+		return ctx.mouseup_handler(ctx, ...args);
+	}
+
+	return {
+		c() {
+			li = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("li");
+			i = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("i");
+			t0 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
+			span = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("span");
+			t1 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])(t1_value);
+			t2 = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["space"])();
+			i.className = i_class_value = "icon " + ctx.item.faIcon + " svelte-ltk2vr";
+			span.className = "svelte-ltk2vr";
+			li.className = "svelte-ltk2vr";
+			dispose = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["listen"])(li, "mouseup", mouseup_handler);
+		},
+
+		m(target, anchor) {
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["insert"])(target, li, anchor);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(li, i);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(li, t0);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(li, span);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(span, t1);
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["append"])(li, t2);
+		},
+
+		p(changed, new_ctx) {
+			ctx = new_ctx;
+		},
+
+		d(detaching) {
+			if (detaching) {
+				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach"])(li);
+			}
+
+			dispose();
+		}
+	};
+}
+
+function create_fragment(ctx) {
+	var ul;
+
+	var each_value = ctx.menuItems;
+
+	var each_blocks = [];
+
+	for (var i = 0; i < each_value.length; i += 1) {
+		each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
+	}
+
+	return {
+		c() {
+			ul = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["element"])("ul");
+
+			for (var i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].c();
+			}
+			ul.className = "menu svelte-ltk2vr";
+		},
+
+		m(target, anchor) {
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["insert"])(target, ul, anchor);
+
+			for (var i = 0; i < each_blocks.length; i += 1) {
+				each_blocks[i].m(ul, null);
+			}
+		},
+
+		p(changed, ctx) {
+			if (changed.menuItems) {
+				each_value = ctx.menuItems;
+
+				for (var i = 0; i < each_value.length; i += 1) {
+					const child_ctx = get_each_context(ctx, each_value, i);
+
+					if (each_blocks[i]) {
+						each_blocks[i].p(changed, child_ctx);
+					} else {
+						each_blocks[i] = create_each_block(child_ctx);
+						each_blocks[i].c();
+						each_blocks[i].m(ul, null);
+					}
+				}
+
+				for (; i < each_blocks.length; i += 1) {
+					each_blocks[i].d(1);
+				}
+				each_blocks.length = each_value.length;
+			}
+		},
+
+		i: svelte_internal__WEBPACK_IMPORTED_MODULE_0__["noop"],
+		o: svelte_internal__WEBPACK_IMPORTED_MODULE_0__["noop"],
+
+		d(detaching) {
+			if (detaching) {
+				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach"])(ul);
+			}
+
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["destroy_each"])(each_blocks, detaching);
+		}
+	};
+}
+
+function instance($$self, $$props, $$invalidate) {
+	let menuItems = [
+        { id: 1, name: 'Dashboard', faIcon: "fas fa-chart-area"},
+        { id: 2, name: 'Query', faIcon: "fas fa-search" },
+        { id: 3, name: 'Configuration', faIcon: "fas fa-sliders-h"},
+    ];
+    let { selectedMenu = 1 } = $$props;
+
+	function mouseup_handler({ item }, e) {selectedMenu = item.id; $$invalidate('selectedMenu', selectedMenu);}
+
+	$$self.$set = $$props => {
+		if ('selectedMenu' in $$props) $$invalidate('selectedMenu', selectedMenu = $$props.selectedMenu);
+	};
+
+	return { menuItems, selectedMenu, mouseup_handler };
+}
+
+class Menu extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__["SvelteComponent"] {
+	constructor(options) {
+		super();
+		Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["init"])(this, options, instance, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__["safe_not_equal"], ["selectedMenu"]);
+	}
+}
+
+
+if (false) {}
+
+/* harmony default export */ __webpack_exports__["default"] = (Menu);
+
+
+
+
+/***/ }),
+
+/***/ "./src/Menu.svelte.css":
+/*!*****************************!*\
+  !*** ./src/Menu.svelte.css ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../node_modules/css-loader/dist/cjs.js!./Menu.svelte.css */ "./node_modules/css-loader/dist/cjs.js!./src/Menu.svelte.css");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./src/Query.svelte":
+/*!**************************!*\
+  !*** ./src/Query.svelte ***!
+  \**************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var svelte_internal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svelte/internal */ "./node_modules/svelte/internal.mjs");
+/* src/Query.svelte generated by Svelte v3.4.2 */
+
+
+function create_fragment(ctx) {
+	var t;
+
+	return {
+		c() {
+			t = Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["text"])("Query");
+		},
+
+		m(target, anchor) {
+			Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["insert"])(target, t, anchor);
+		},
+
+		p: svelte_internal__WEBPACK_IMPORTED_MODULE_0__["noop"],
+		i: svelte_internal__WEBPACK_IMPORTED_MODULE_0__["noop"],
+		o: svelte_internal__WEBPACK_IMPORTED_MODULE_0__["noop"],
+
+		d(detaching) {
+			if (detaching) {
+				Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["detach"])(t);
+			}
+		}
+	};
+}
+
+class Query extends svelte_internal__WEBPACK_IMPORTED_MODULE_0__["SvelteComponent"] {
+	constructor(options) {
+		super();
+		Object(svelte_internal__WEBPACK_IMPORTED_MODULE_0__["init"])(this, options, null, create_fragment, svelte_internal__WEBPACK_IMPORTED_MODULE_0__["safe_not_equal"], []);
+	}
+}
+
+
+if (false) {}
+
+/* harmony default export */ __webpack_exports__["default"] = (Query);
+
 
 /***/ }),
 
